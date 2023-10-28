@@ -1,4 +1,4 @@
-package halcyon.clemncare.app.models;
+package halcyon.clemncare.app.model;
 
 import lombok.Data;
 
@@ -19,7 +19,7 @@ public class HomeAddress {
     private String streetAddress;
     private String city;
     private StateCode state;
-    private Long zipCode;
+    private String zipCode;
 
     // Constructors, getters, and setters
 }

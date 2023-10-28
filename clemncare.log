@@ -1,0 +1,193 @@
+2023-10-28T15:13:44.646-05:00  INFO 20684 --- [restartedMain] halcyon.clemncare.app.AppApplication     : Starting AppApplication using Java 17.0.8 with PID 20684 (C:\Users\justi\Documents\Coding\ClemNCare\app\target\classes started by justi in C:\Users\justi\Documents\Coding\ClemNCare)
+2023-10-28T15:13:44.647-05:00  INFO 20684 --- [restartedMain] halcyon.clemncare.app.AppApplication     : The following 1 profile is active: "development"
+2023-10-28T15:13:44.738-05:00  INFO 20684 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-10-28T15:13:44.741-05:00  INFO 20684 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 JPA repository interfaces.
+2023-10-28T15:13:44.779-05:00  INFO 20684 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-10-28T15:13:44.779-05:00  INFO 20684 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-10-28T15:13:44.779-05:00  INFO 20684 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.15]
+2023-10-28T15:13:44.797-05:00  INFO 20684 --- [restartedMain] o.a.c.c.C.[Tomcat-1].[localhost].[/]     : Initializing Spring embedded WebApplicationContext
+2023-10-28T15:13:44.797-05:00  INFO 20684 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 148 ms
+2023-10-28T15:13:44.813-05:00  INFO 20684 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-25 - Starting...
+2023-10-28T15:13:44.814-05:00  INFO 20684 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-25 - Added connection conn231: url=jdbc:h2:mem:9483a1d6-09c7-4209-8b6f-7b93e48c30fe user=SA
+2023-10-28T15:13:44.815-05:00  INFO 20684 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-25 - Start completed.
+2023-10-28T15:13:44.816-05:00  INFO 20684 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-10-28T15:13:44.819-05:00  INFO 20684 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-10-28T15:13:44.828-05:00  INFO 20684 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2023-10-28T15:13:44.828-05:00  INFO 20684 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-10-28T15:13:44.837-05:00  WARN 20684 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-10-28T15:13:44.880-05:00  INFO 20684 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-10-28T15:13:44.886-05:00  INFO 20684 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-10-28T15:13:44.888-05:00  INFO 20684 --- [restartedMain] halcyon.clemncare.app.AppApplication     : Started AppApplication in 0.26 seconds (process running for 1942.511)
+2023-10-28T15:13:44.889-05:00  INFO 20684 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2023-10-28T15:14:16.724-05:00  INFO 20684 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 1 deletion, 0 modifications)
+2023-10-28T15:14:16.732-05:00  INFO 20684 --- [Thread-99] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2023-10-28T15:14:16.735-05:00  INFO 20684 --- [Thread-99] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-10-28T15:14:16.939-05:00  WARN 20684 --- [Thread-99] o.s.b.f.support.DisposableBeanAdapter    : Invocation of destroy method failed on bean with name 'inMemoryDatabaseShutdownExecutor': org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-200]
+2023-10-28T15:14:16.939-05:00  INFO 20684 --- [Thread-99] com.zaxxer.hikari.HikariDataSource       : HikariPool-25 - Shutdown initiated...
+2023-10-28T15:14:16.939-05:00  INFO 20684 --- [Thread-99] com.zaxxer.hikari.HikariDataSource       : HikariPool-25 - Shutdown completed.
+2023-10-28T15:14:17.006-05:00  INFO 20684 --- [restartedMain] halcyon.clemncare.app.AppApplication     : Starting AppApplication using Java 17.0.8 with PID 20684 (C:\Users\justi\Documents\Coding\ClemNCare\app\target\classes started by justi in C:\Users\justi\Documents\Coding\ClemNCare)
+2023-10-28T15:14:17.006-05:00  INFO 20684 --- [restartedMain] halcyon.clemncare.app.AppApplication     : The following 1 profile is active: "development"
+2023-10-28T15:14:17.092-05:00  INFO 20684 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-10-28T15:14:17.095-05:00  INFO 20684 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 JPA repository interfaces.
+2023-10-28T15:14:17.127-05:00  INFO 20684 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-10-28T15:14:17.127-05:00  INFO 20684 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-10-28T15:14:17.128-05:00  INFO 20684 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.15]
+2023-10-28T15:14:17.142-05:00  INFO 20684 --- [restartedMain] o.a.c.c.C.[Tomcat-1].[localhost].[/]     : Initializing Spring embedded WebApplicationContext
+2023-10-28T15:14:17.144-05:00  INFO 20684 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 137 ms
+2023-10-28T15:14:17.163-05:00  INFO 20684 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-26 - Starting...
+2023-10-28T15:14:17.165-05:00  INFO 20684 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-26 - Added connection conn241: url=jdbc:h2:mem:f74f0d49-ee02-4805-87d6-4e1cc086872f user=SA
+2023-10-28T15:14:17.166-05:00  INFO 20684 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-26 - Start completed.
+2023-10-28T15:14:17.167-05:00  INFO 20684 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-10-28T15:14:17.172-05:00  INFO 20684 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-10-28T15:14:17.177-05:00  INFO 20684 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2023-10-28T15:14:17.178-05:00  INFO 20684 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-10-28T15:14:17.188-05:00  WARN 20684 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-10-28T15:14:17.240-05:00  INFO 20684 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-10-28T15:14:17.274-05:00  INFO 20684 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-10-28T15:14:17.276-05:00  INFO 20684 --- [restartedMain] halcyon.clemncare.app.AppApplication     : Started AppApplication in 0.287 seconds (process running for 1974.9)
+2023-10-28T15:14:17.277-05:00  INFO 20684 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2023-10-28T15:14:43.240-05:00  INFO 16596 --- [restartedMain] halcyon.clemncare.app.AppApplication     : Starting AppApplication using Java 17.0.8 with PID 16596 (C:\Users\justi\Documents\Coding\ClemNCare\app\target\classes started by justi in C:\Users\justi\Documents\Coding\ClemNCare)
+2023-10-28T15:14:43.243-05:00  INFO 16596 --- [restartedMain] halcyon.clemncare.app.AppApplication     : The following 1 profile is active: "development"
+2023-10-28T15:14:43.299-05:00  INFO 16596 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-10-28T15:14:43.300-05:00  INFO 16596 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-10-28T15:14:43.847-05:00  INFO 16596 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-10-28T15:14:43.871-05:00  INFO 16596 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 15 ms. Found 0 JPA repository interfaces.
+2023-10-28T15:14:44.522-05:00  INFO 16596 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-10-28T15:14:44.535-05:00  INFO 16596 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-10-28T15:14:44.536-05:00  INFO 16596 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.15]
+2023-10-28T15:14:44.627-05:00  INFO 16596 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-10-28T15:14:44.629-05:00  INFO 16596 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1327 ms
+2023-10-28T15:14:44.809-05:00  INFO 16596 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-10-28T15:14:44.963-05:00  INFO 16596 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:1336d381-ed9d-4bf0-a6ae-09dd9de716bb user=SA
+2023-10-28T15:14:44.965-05:00  INFO 16596 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-10-28T15:14:45.019-05:00  INFO 16596 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-10-28T15:14:45.091-05:00  INFO 16596 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.2.13.Final
+2023-10-28T15:14:45.095-05:00  INFO 16596 --- [restartedMain] org.hibernate.cfg.Environment            : HHH000406: Using bytecode reflection optimizer
+2023-10-28T15:14:45.154-05:00  INFO 16596 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-10-28T15:14:45.352-05:00  INFO 16596 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-10-28T15:14:45.667-05:00  INFO 16596 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2023-10-28T15:14:45.672-05:00  INFO 16596 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-10-28T15:14:45.736-05:00  WARN 16596 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-10-28T15:14:46.187-05:00  INFO 16596 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-10-28T15:14:46.243-05:00  INFO 16596 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-10-28T15:14:46.278-05:00  INFO 16596 --- [restartedMain] halcyon.clemncare.app.AppApplication     : Started AppApplication in 3.403 seconds (process running for 3.884)
+2023-10-28T15:15:59.005-05:00  INFO 16596 --- [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-10-28T15:15:59.006-05:00  INFO 16596 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-10-28T15:15:59.007-05:00  INFO 16596 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2023-10-28T15:15:59.153-05:00  WARN 16596 --- [http-nio-8080-exec-2] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Unexpected character ('}' (code 125)): was expecting double-quote to start field name]
+2023-10-28T15:18:21.803-05:00  INFO 16596 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2023-10-28T15:18:21.814-05:00  INFO 16596 --- [Thread-5] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2023-10-28T15:18:21.816-05:00  INFO 16596 --- [Thread-5] o.a.c.c.C.[Tomcat].[localhost].[/]       : Destroying Spring FrameworkServlet 'dispatcherServlet'
+2023-10-28T15:18:21.822-05:00  INFO 16596 --- [Thread-5] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-10-28T15:18:22.034-05:00  WARN 16596 --- [Thread-5] o.s.b.f.support.DisposableBeanAdapter    : Invocation of destroy method failed on bean with name 'inMemoryDatabaseShutdownExecutor': org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-200]
+2023-10-28T15:18:22.035-05:00  INFO 16596 --- [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-10-28T15:18:22.037-05:00  INFO 16596 --- [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-10-28T15:18:22.102-05:00  INFO 16596 --- [restartedMain] halcyon.clemncare.app.AppApplication     : Starting AppApplication using Java 17.0.8 with PID 16596 (C:\Users\justi\Documents\Coding\ClemNCare\app\target\classes started by justi in C:\Users\justi\Documents\Coding\ClemNCare)
+2023-10-28T15:18:22.103-05:00  INFO 16596 --- [restartedMain] halcyon.clemncare.app.AppApplication     : The following 1 profile is active: "development"
+2023-10-28T15:18:22.296-05:00  INFO 16596 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-10-28T15:18:22.299-05:00  INFO 16596 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 2 ms. Found 0 JPA repository interfaces.
+2023-10-28T15:18:22.431-05:00  INFO 16596 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-10-28T15:18:22.433-05:00  INFO 16596 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-10-28T15:18:22.433-05:00  INFO 16596 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.15]
+2023-10-28T15:18:22.467-05:00  INFO 16596 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-10-28T15:18:22.471-05:00  INFO 16596 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 364 ms
+2023-10-28T15:18:22.544-05:00  INFO 16596 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2023-10-28T15:18:22.552-05:00  INFO 16596 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection conn10: url=jdbc:h2:mem:9e032027-2ae2-4cae-b34d-fdd87e914563 user=SA
+2023-10-28T15:18:22.563-05:00  INFO 16596 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2023-10-28T15:18:22.567-05:00  INFO 16596 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-10-28T15:18:22.574-05:00  INFO 16596 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-10-28T15:18:22.586-05:00  INFO 16596 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2023-10-28T15:18:22.598-05:00  INFO 16596 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-10-28T15:18:22.699-05:00  WARN 16596 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-10-28T15:18:22.888-05:00  INFO 16596 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-10-28T15:18:22.899-05:00  INFO 16596 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-10-28T15:18:22.901-05:00  INFO 16596 --- [restartedMain] halcyon.clemncare.app.AppApplication     : Started AppApplication in 0.829 seconds (process running for 220.509)
+2023-10-28T15:18:22.918-05:00  INFO 16596 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2023-10-28T15:18:25.329-05:00  INFO 16596 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2023-10-28T15:18:25.338-05:00  INFO 16596 --- [Thread-7] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2023-10-28T15:18:25.342-05:00  INFO 16596 --- [Thread-7] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-10-28T15:18:25.546-05:00  WARN 16596 --- [Thread-7] o.s.b.f.support.DisposableBeanAdapter    : Invocation of destroy method failed on bean with name 'inMemoryDatabaseShutdownExecutor': org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-200]
+2023-10-28T15:18:25.547-05:00  INFO 16596 --- [Thread-7] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
+2023-10-28T15:18:25.548-05:00  INFO 16596 --- [Thread-7] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
+2023-10-28T15:18:25.616-05:00  INFO 16596 --- [restartedMain] halcyon.clemncare.app.AppApplication     : Starting AppApplication using Java 17.0.8 with PID 16596 (C:\Users\justi\Documents\Coding\ClemNCare\app\target\classes started by justi in C:\Users\justi\Documents\Coding\ClemNCare)
+2023-10-28T15:18:25.617-05:00  INFO 16596 --- [restartedMain] halcyon.clemncare.app.AppApplication     : The following 1 profile is active: "development"
+2023-10-28T15:18:25.811-05:00  INFO 16596 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-10-28T15:18:25.814-05:00  INFO 16596 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 2 ms. Found 0 JPA repository interfaces.
+2023-10-28T15:18:25.926-05:00  INFO 16596 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-10-28T15:18:25.928-05:00  INFO 16596 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-10-28T15:18:25.928-05:00  INFO 16596 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.15]
+2023-10-28T15:18:25.947-05:00  INFO 16596 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-10-28T15:18:25.947-05:00  INFO 16596 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 326 ms
+2023-10-28T15:18:25.983-05:00  INFO 16596 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Starting...
+2023-10-28T15:18:25.986-05:00  INFO 16596 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-3 - Added connection conn20: url=jdbc:h2:mem:b7a65aa6-2dd8-43d9-a0ed-bb1090d65f74 user=SA
+2023-10-28T15:18:25.987-05:00  INFO 16596 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Start completed.
+2023-10-28T15:18:25.991-05:00  INFO 16596 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-10-28T15:18:26.000-05:00  INFO 16596 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-10-28T15:18:26.016-05:00  INFO 16596 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2023-10-28T15:18:26.017-05:00  INFO 16596 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-10-28T15:18:26.046-05:00  WARN 16596 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-10-28T15:18:26.192-05:00  INFO 16596 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-10-28T15:18:26.202-05:00  INFO 16596 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-10-28T15:18:26.206-05:00  INFO 16596 --- [restartedMain] halcyon.clemncare.app.AppApplication     : Started AppApplication in 0.621 seconds (process running for 223.812)
+2023-10-28T15:18:26.207-05:00  INFO 16596 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2023-10-28T15:18:27.608-05:00  INFO 16596 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2023-10-28T15:18:27.616-05:00  INFO 16596 --- [Thread-12] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2023-10-28T15:18:27.619-05:00  INFO 16596 --- [Thread-12] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-10-28T15:18:27.825-05:00  WARN 16596 --- [Thread-12] o.s.b.f.support.DisposableBeanAdapter    : Invocation of destroy method failed on bean with name 'inMemoryDatabaseShutdownExecutor': org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-200]
+2023-10-28T15:18:27.826-05:00  INFO 16596 --- [Thread-12] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown initiated...
+2023-10-28T15:18:27.827-05:00  INFO 16596 --- [Thread-12] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown completed.
+2023-10-28T15:18:27.883-05:00  INFO 16596 --- [restartedMain] halcyon.clemncare.app.AppApplication     : Starting AppApplication using Java 17.0.8 with PID 16596 (C:\Users\justi\Documents\Coding\ClemNCare\app\target\classes started by justi in C:\Users\justi\Documents\Coding\ClemNCare)
+2023-10-28T15:18:27.884-05:00  INFO 16596 --- [restartedMain] halcyon.clemncare.app.AppApplication     : The following 1 profile is active: "development"
+2023-10-28T15:18:28.021-05:00  INFO 16596 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-10-28T15:18:28.023-05:00  INFO 16596 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 JPA repository interfaces.
+2023-10-28T15:18:28.081-05:00  INFO 16596 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-10-28T15:18:28.081-05:00  INFO 16596 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-10-28T15:18:28.081-05:00  INFO 16596 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.15]
+2023-10-28T15:18:28.101-05:00  INFO 16596 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-10-28T15:18:28.102-05:00  INFO 16596 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 216 ms
+2023-10-28T15:18:28.129-05:00  INFO 16596 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Starting...
+2023-10-28T15:18:28.132-05:00  INFO 16596 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-4 - Added connection conn30: url=jdbc:h2:mem:dc066a5a-5608-4ff7-a0c5-0e0e706d408a user=SA
+2023-10-28T15:18:28.133-05:00  INFO 16596 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Start completed.
+2023-10-28T15:18:28.135-05:00  INFO 16596 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-10-28T15:18:28.141-05:00  INFO 16596 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-10-28T15:18:28.149-05:00  INFO 16596 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2023-10-28T15:18:28.150-05:00  INFO 16596 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-10-28T15:18:28.169-05:00  WARN 16596 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-10-28T15:18:28.247-05:00  INFO 16596 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-10-28T15:18:28.256-05:00  INFO 16596 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-10-28T15:18:28.259-05:00  INFO 16596 --- [restartedMain] halcyon.clemncare.app.AppApplication     : Started AppApplication in 0.401 seconds (process running for 225.866)
+2023-10-28T15:18:28.261-05:00  INFO 16596 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2023-10-28T15:20:16.763-05:00  INFO 16596 --- [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-10-28T15:20:16.764-05:00  INFO 16596 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-10-28T15:20:16.764-05:00  INFO 16596 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2023-10-28T15:22:47.729-05:00  INFO 16596 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2023-10-28T15:22:47.738-05:00  INFO 16596 --- [Thread-16] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2023-10-28T15:22:47.739-05:00  INFO 16596 --- [Thread-16] o.a.c.c.C.[Tomcat].[localhost].[/]       : Destroying Spring FrameworkServlet 'dispatcherServlet'
+2023-10-28T15:22:47.742-05:00  INFO 16596 --- [Thread-16] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-10-28T15:22:47.948-05:00  WARN 16596 --- [Thread-16] o.s.b.f.support.DisposableBeanAdapter    : Invocation of destroy method failed on bean with name 'inMemoryDatabaseShutdownExecutor': org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-200]
+2023-10-28T15:22:47.949-05:00  INFO 16596 --- [Thread-16] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Shutdown initiated...
+2023-10-28T15:22:47.949-05:00  INFO 16596 --- [Thread-16] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Shutdown completed.
+2023-10-28T15:22:48.016-05:00  INFO 16596 --- [restartedMain] halcyon.clemncare.app.AppApplication     : Starting AppApplication using Java 17.0.8 with PID 16596 (C:\Users\justi\Documents\Coding\ClemNCare\app\target\classes started by justi in C:\Users\justi\Documents\Coding\ClemNCare)
+2023-10-28T15:22:48.016-05:00  INFO 16596 --- [restartedMain] halcyon.clemncare.app.AppApplication     : The following 1 profile is active: "development"
+2023-10-28T15:22:48.152-05:00  INFO 16596 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-10-28T15:22:48.154-05:00  INFO 16596 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 JPA repository interfaces.
+2023-10-28T15:22:48.214-05:00  INFO 16596 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-10-28T15:22:48.214-05:00  INFO 16596 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-10-28T15:22:48.214-05:00  INFO 16596 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.15]
+2023-10-28T15:22:48.233-05:00  INFO 16596 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-10-28T15:22:48.233-05:00  INFO 16596 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 214 ms
+2023-10-28T15:22:48.254-05:00  INFO 16596 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Starting...
+2023-10-28T15:22:48.256-05:00  INFO 16596 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-5 - Added connection conn40: url=jdbc:h2:mem:bbde644c-5e19-40f2-8cf5-f956f9c7529d user=SA
+2023-10-28T15:22:48.257-05:00  INFO 16596 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Start completed.
+2023-10-28T15:22:48.258-05:00  INFO 16596 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-10-28T15:22:48.264-05:00  INFO 16596 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-10-28T15:22:48.272-05:00  INFO 16596 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2023-10-28T15:22:48.273-05:00  INFO 16596 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-10-28T15:22:48.289-05:00  WARN 16596 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-10-28T15:22:48.350-05:00  INFO 16596 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-10-28T15:22:48.359-05:00  INFO 16596 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-10-28T15:22:48.362-05:00  INFO 16596 --- [restartedMain] halcyon.clemncare.app.AppApplication     : Started AppApplication in 0.368 seconds (process running for 485.969)
+2023-10-28T15:22:48.364-05:00  INFO 16596 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2023-10-28T15:23:38.442-05:00  INFO 16596 --- [http-nio-8080-exec-4] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-10-28T15:23:38.442-05:00  INFO 16596 --- [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-10-28T15:23:38.443-05:00  INFO 16596 --- [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms

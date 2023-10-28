@@ -1,6 +1,4 @@
-package halcyon.clemncare.app.models;
-
-import lombok.Data;
+package halcyon.clemncare.app.model;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -10,10 +8,11 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 import halcyon.clemncare.app.enums.Relationship;
+import lombok.Data;
 
 @Data
 @Entity
-public class Guardian {
+public class EmergencyContact {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -26,8 +25,8 @@ public class Guardian {
     @OneToOne(cascade = CascadeType.ALL)
     private HomeAddress address;
 
-    public String getName() {
-        return firstName  + " " + lastName;
+    public String getname() {
+        return firstName + " " + lastName;
     }
 
     // Constructors, getters, and setters

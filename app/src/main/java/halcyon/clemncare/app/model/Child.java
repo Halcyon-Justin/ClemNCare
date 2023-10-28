@@ -1,4 +1,4 @@
-package halcyon.clemncare.app.models;
+package halcyon.clemncare.app.model;
 
 import java.util.List;
 
@@ -42,16 +42,5 @@ public class Child {
 
     public String getName() {
         return firstName + " " + lastName;
-    }
-
-    public Child(String firstName, String lastName, String dateOfBirth, EmergencyContact emergencyContact, Guardian guardian) {
-        if (firstName == null || firstName.isEmpty() || lastName == null || lastName.isEmpty() || dateOfBirth == null || emergencyContact == null || guardian == null) {
-            throw new IllegalArgumentException("Mandatory fields must not be null or empty.");
-        }
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.dateOfBirth = dateOfBirth;
-        this.emergencyContact = emergencyContact;
-        this.guardian = guardian;
     }
 }
