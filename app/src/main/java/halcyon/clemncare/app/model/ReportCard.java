@@ -1,24 +1,25 @@
 package halcyon.clemncare.app.model;
 
-import lombok.Data;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import halcyon.clemncare.app.enums.StateCode;
+import lombok.Data;
 
 @Data
 @Entity
-public class HomeAddress {
+public class ReportCard {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String streetAddress;
-    private String city;
-    private StateCode state;
-    private String zipCode;
+    private Date reportCardDate;
+    private Boolean hasNapped;
+    private String notes;
+    private String sendTo;
 
 }

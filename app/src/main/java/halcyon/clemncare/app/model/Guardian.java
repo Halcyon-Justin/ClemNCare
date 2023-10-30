@@ -21,14 +21,14 @@ public class Guardian {
     private String firstName;
     private String lastName;
     private String phoneNumber;
+    private String emailAddress;
     private Relationship relationship;
 
     @OneToOne(cascade = CascadeType.ALL)
     private HomeAddress address;
 
     public String getName() {
-        return firstName  + " " + lastName;
+        return firstName + " " + lastName;
     }
 
-    // Constructors, getters, and setters
 }

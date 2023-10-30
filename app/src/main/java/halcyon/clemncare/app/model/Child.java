@@ -29,7 +29,7 @@ public class Child {
     private List<String> allergies;
 
     @OneToOne(cascade = CascadeType.ALL)
-    private EmergencyContact emergencyContact;
+    private Guardian emergencyContact;
 
     @ManyToMany(cascade = CascadeType.ALL)
     private Guardian guardian;
@@ -37,6 +37,8 @@ public class Child {
     @ElementCollection
     @Enumerated(EnumType.STRING)
     private List<DayOfWeek> frequency;
+
+    private Boolean isActive;
 
     private String notes;
 
