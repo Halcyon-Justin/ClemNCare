@@ -15,7 +15,7 @@ import halcyon.clemncare.app.model.Child;
 
 @RestController
 @RequestMapping("/children")
-public class ChildAPIService {
+public class ChildController {
 
     //TODO: add pagination
 
