@@ -1,0 +1,8 @@
+spring:
+    datasource:
+        url: jdbc:mysql://localhost:3306:/clemncare?useSSL=false
+        username: root
+        password: password
+
+# JPA SETTINGS
+    jpa.hibernate.ddl-auto: create
