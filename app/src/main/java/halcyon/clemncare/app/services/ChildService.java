@@ -9,5 +9,5 @@ public interface ChildService {
     public String updateChild(Child child);
     public String deleteChild(Long childId);
     public Child getChild(Long childId);
-    public List<Child> getAllChildrend();
+    public List<Child> getAllChildren();
 }

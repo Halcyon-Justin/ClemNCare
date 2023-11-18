@@ -41,7 +41,7 @@ public class ChildServiceImpl implements ChildService{
     }
 
     @Override
-    public List<Child> getAllChildrend() {
+    public List<Child> getAllChildren() {
         return childRepository.findAll();
     }
     
