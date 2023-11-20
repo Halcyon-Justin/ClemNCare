@@ -4,6 +4,8 @@ import lombok.Data;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,6 +24,7 @@ public class HomeAddress {
 
     private String streetAddress;
     private String city;
+    @Enumerated(EnumType.STRING)
     private StateCode state;
     private String zipCode;
 

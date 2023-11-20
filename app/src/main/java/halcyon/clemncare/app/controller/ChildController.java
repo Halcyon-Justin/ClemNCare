@@ -18,7 +18,7 @@ import halcyon.clemncare.app.services.ChildService;
 @RequestMapping("/children")
 public class ChildController {
 
-    ChildService childService;
+    private final ChildService childService;
 
     public ChildController(ChildService childService) {
         this.childService = childService;

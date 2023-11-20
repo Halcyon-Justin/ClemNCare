@@ -7,9 +7,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import jakarta.persistence.ManyToOne;
 import lombok.Data;
 
 @Data
@@ -23,6 +23,7 @@ public class ReportCard {
 
     @ManyToOne
     @JoinColumn(name = "child_id")
+    private Child child;
 
     private Boolean hasNapped;
     private String notes;
