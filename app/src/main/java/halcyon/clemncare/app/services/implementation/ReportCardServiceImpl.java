@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import halcyon.clemncare.app.model.Child;
 import halcyon.clemncare.app.model.ReportCard;
 import halcyon.clemncare.app.repositories.ReportCardRepository;
 import halcyon.clemncare.app.services.ReportCardService;
@@ -40,7 +39,7 @@ public class ReportCardServiceImpl implements ReportCardService {
     }
 
     @Override
-    public List<ReportCard> getAllReportCardsByChildId(Child childId) {
+    public List<ReportCard> getAllReportCardsByChildId(Long childId) {
         return reportCardRepository.findByChildId(childId);
     }
     

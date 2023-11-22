@@ -1,6 +1,7 @@
 package halcyon.clemncare.app.model;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -47,7 +48,7 @@ public class Child {
         joinColumns = @JoinColumn(name = "child_id"),
         inverseJoinColumns = @JoinColumn(name = "guardian_id")
     )
-    private List<Guardian> guardians;
+    private Set<Guardian> guardians;
 
     @ElementCollection
     @Enumerated(EnumType.STRING)

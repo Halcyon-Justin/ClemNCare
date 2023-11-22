@@ -1,10 +1,12 @@
 package halcyon.clemncare.app.services.implementation;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import halcyon.clemncare.app.model.Child;
 import halcyon.clemncare.app.model.Guardian;
 import halcyon.clemncare.app.repositories.GuardianRepository;
 import halcyon.clemncare.app.services.GuardianService;
@@ -39,8 +41,13 @@ public class GuardianServiceImpl implements GuardianService{
     }
 
     @Override
-    public List<Guardian> getGuardians() {
+    public List<Guardian> getAllGuardians() {
         return guardianRepository.findAll();
+    }
+
+    @Override
+    public Set<Child> findChildrenByGuardianId(Long id) {
+        return guardianRepository.findChildrenByGuardianId(id);
     }
 
 }

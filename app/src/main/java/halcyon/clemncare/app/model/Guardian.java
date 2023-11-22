@@ -1,8 +1,6 @@
 package halcyon.clemncare.app.model;
 
-import lombok.Data;
-
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import halcyon.clemncare.app.enums.Relationship;
+import lombok.Data;
 
 @Data
 @Entity
@@ -31,16 +30,16 @@ public class Guardian {
     private String lastName;
     private String phoneNumber;
     private String emailAddress;
-    
+
     @Enumerated(EnumType.STRING)
     private Relationship relationship;
 
     @ManyToMany(mappedBy = "guardians")
-    private List<Child> children;
+    private Set<Child> children;
 
     @ManyToOne
-    @JoinColumn(name = "address_id")
-    private HomeAddress address;
+    @JoinColumn(name = "home_address_id")
+    private HomeAddress homeAddress;
 
     public String getName() {
         return firstName + " " + lastName;

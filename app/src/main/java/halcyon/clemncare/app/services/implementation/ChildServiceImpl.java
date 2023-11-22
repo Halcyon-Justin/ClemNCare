@@ -1,11 +1,13 @@
 package halcyon.clemncare.app.services.implementation;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import halcyon.clemncare.app.model.Child;
+import halcyon.clemncare.app.model.Guardian;
 import halcyon.clemncare.app.repositories.ChildRepository;
 import halcyon.clemncare.app.services.ChildService;
 
@@ -41,6 +43,11 @@ public class ChildServiceImpl implements ChildService{
     @Override
     public List<Child> getAllChildren() {
         return childRepository.findAll();
+    }
+
+    @Override
+    public Set<Guardian> findGuardiansByChildId(Long childId) {
+        return childRepository.findGuardiansByChildId(childId);
     }
     
 }

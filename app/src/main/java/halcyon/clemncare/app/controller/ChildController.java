@@ -1,6 +1,7 @@
 package halcyon.clemncare.app.controller;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import halcyon.clemncare.app.model.Child;
+import halcyon.clemncare.app.model.Guardian;
 import halcyon.clemncare.app.services.ChildService;
 
 @RestController
@@ -47,6 +49,11 @@ public class ChildController {
     @DeleteMapping("/{id}")
     public String deleteChild(@PathVariable("id") Long id) {
         return childService.deleteChild(id);
+    }
+
+    @GetMapping("/find/{id}")
+    public Set<Guardian> findGuardiansByChildId(@PathVariable("id") Long id) {
+        return childService.findGuardiansByChildId(id);
     }
 
 }
