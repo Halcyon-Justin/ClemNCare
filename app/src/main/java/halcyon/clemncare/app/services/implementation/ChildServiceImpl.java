@@ -2,6 +2,7 @@ package halcyon.clemncare.app.services.implementation;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import halcyon.clemncare.app.model.Child;
@@ -11,11 +12,8 @@ import halcyon.clemncare.app.services.ChildService;
 @Service
 public class ChildServiceImpl implements ChildService{
 
+    @Autowired
     ChildRepository childRepository;
-
-    public ChildServiceImpl(ChildRepository childRepository) {
-        this.childRepository = childRepository;
-    }
 
     @Override
     public String createChild(Child child) {

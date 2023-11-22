@@ -31,6 +31,7 @@ public class Guardian {
     private String lastName;
     private String phoneNumber;
     private String emailAddress;
+    
     @Enumerated(EnumType.STRING)
     private Relationship relationship;
 

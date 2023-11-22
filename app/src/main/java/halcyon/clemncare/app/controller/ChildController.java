@@ -15,7 +15,7 @@ import halcyon.clemncare.app.model.Child;
 import halcyon.clemncare.app.services.ChildService;
 
 @RestController
-@RequestMapping("/children")
+@RequestMapping("/api/children")
 public class ChildController {
 
     private final ChildService childService;
