@@ -9,10 +9,7 @@ public class AppApplication {
         SpringApplication.run(AppApplication.class, args);
 
         //TODO
-        //Create Repo, Service, ServiceImpls, and Controllers for objects AND combined Combined Tables for:
-        //Guardian
-        //Report Card
-        //Home Address
+        // Create API methods that Save child with parent and vice-versa.
 
     }
 }

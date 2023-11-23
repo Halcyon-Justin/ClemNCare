@@ -16,7 +16,7 @@ import halcyon.clemncare.app.model.HomeAddress;
 import halcyon.clemncare.app.services.HomeAddressService;
 
 @RestController
-@RequestMapping("/api/homeaddress")
+@RequestMapping("/api/homeaddresses")
 public class HomeAddressController {
 
     private final HomeAddressService homeAddressService;
