@@ -41,8 +41,15 @@ public class Guardian {
     @JoinColumn(name = "home_address_id")
     private HomeAddress homeAddress;
 
+    private Boolean isEmergencyContact;
+
     public String getName() {
         return firstName + " " + lastName;
+    }
+
+    public void addChildtoGuardian(Child child) {
+        this.children.add(child);
+        child.getGuardians().add(this);
     }
 
 }

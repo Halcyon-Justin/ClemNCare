@@ -10,6 +10,9 @@ public class AppApplication {
 
         //TODO
         // Create API methods that Save child with parent and vice-versa.
+        //       -Create a 'Registration' API that will be used to:
+        //              -Save a Child with a Parent and an Address.
+        // Look into how to utilize Enums and LocalDateTime for objects in DTO
 
     }
 }

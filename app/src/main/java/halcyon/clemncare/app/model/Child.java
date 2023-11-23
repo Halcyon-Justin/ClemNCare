@@ -1,7 +1,7 @@
 package halcyon.clemncare.app.model;
 
+import java.time.LocalDate;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -33,7 +33,7 @@ public class Child {
 
     private String firstName;
     private String lastName;
-    private String dateOfBirth;
+    private LocalDate dateOfBirth;
 
     @ElementCollection
     private List<String> allergies;
@@ -48,7 +48,7 @@ public class Child {
         joinColumns = @JoinColumn(name = "child_id"),
         inverseJoinColumns = @JoinColumn(name = "guardian_id")
     )
-    private Set<Guardian> guardians;
+    private List<Guardian> guardians;
 
     @ElementCollection
     @Enumerated(EnumType.STRING)
@@ -63,6 +63,11 @@ public class Child {
 
     public String getName() {
         return firstName + " " + lastName;
+    }
+
+    public void addGuardianToChild(Guardian guardian) {
+        this.guardians.add(guardian);
+        guardian.getChildren().add(this);
     }
 }
 
