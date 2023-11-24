@@ -9,10 +9,12 @@ public class AppApplication {
         SpringApplication.run(AppApplication.class, args);
 
         //TODO
-        // Create API methods that Save child with parent and vice-versa.
-        //       -Create a 'Registration' API that will be used to:
-        //              -Save a Child with a Parent and an Address.
+        // LocalDate to Child DTO, how to?
+        // Verify if address or guardian exists, it assigns the ID to other objects
         // Look into how to utilize Enums and LocalDateTime for objects in DTO
+        // Add logging
+        // Add Response Entities
+        // Add Error Handling
 
     }
 }

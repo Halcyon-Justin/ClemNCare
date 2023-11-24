@@ -1,14 +1,14 @@
 package halcyon.clemncare.app.services.implementation;
 
-import java.time.LocalDate;
-
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import halcyon.clemncare.app.dto.RegistrationDTO;
+import halcyon.clemncare.app.mappers.RegistrationMapper;
 import halcyon.clemncare.app.model.Child;
 import halcyon.clemncare.app.model.Guardian;
 import halcyon.clemncare.app.model.HomeAddress;
@@ -30,74 +30,32 @@ public class RegistrationServiceImpl implements RegistrationService {
     @Autowired
     private HomeAddressRepository homeAddressRepository;
 
+    @Autowired
+    private RegistrationMapper registrationMapper;
+
     @Override
     @Transactional
     public ResponseEntity<String> registerChildWithGuardianAndAddress(RegistrationDTO registrationDTO) {
 
-        //TODO
-        // Add Enums and List types from Request
+        try {
 
-        // Extract information from the DTO
+            HomeAddress address = registrationMapper.mapAddress(registrationDTO);
+            homeAddressRepository.save(address);
 
-        //Child Info
-        String childFirstName = registrationDTO.getChildFirstName();
-        String childLastName = registrationDTO.getChildLastName();
-        LocalDate childDateOfBirth = registrationDTO.getChildDateOfBirth();
+            Guardian guardian = registrationMapper.mapGuardian(registrationDTO, address);
+            guardianRepository.save(guardian);
 
-        //Guardian Info
-        String guardianFirstName = registrationDTO.getGuardianFirstName();
-        String guardianLastName = registrationDTO.getGuardianLastName();
-        String guardianPhoneNumber = registrationDTO.getGuardianPhoneNumber();
-        String guardianEmailAddress = registrationDTO.getGuardianEmailAddress();
+            Guardian emergencyContact = registrationMapper.mapEmergencyContact(registrationDTO);
+            guardianRepository.save(emergencyContact);
 
-        //Guardian Address Info
-        String streetAddress = registrationDTO.getStreetAddress();
-        String city = registrationDTO.getCity();
-        String zipCode = registrationDTO.getZipCode();
+            Child child = registrationMapper.mapChild(registrationDTO, guardian, emergencyContact);
+            childRepository.save(child);
 
-        //Emergency Contact Info
-        String emergencyContactFirstName = registrationDTO.getEmergencyContactFirstName();
-        String emergencyContactLastName = registrationDTO.getEmergencyContactLastName();
-        String emergencyContactPhoneNumber = registrationDTO.getEmergencyContactPhoneNumber();
-        String emergencyContactEmailAddress = registrationDTO.getEmergencyContactEmailAddress();
-
-
-        // Save the Address first to generate an ID
-        HomeAddress address = new HomeAddress();
-        address.setStreetAddress(streetAddress);
-        address.setCity(city);
-        //ADD STATE ENUM
-        address.setZipCode(zipCode);
-        HomeAddress savedAddress = homeAddressRepository.save(address);
-
-        // Save the Guardian
-        Guardian guardian = new Guardian();
-        guardian.setFirstName(guardianFirstName);
-        guardian.setLastName(guardianLastName);
-        guardian.setPhoneNumber(guardianPhoneNumber);
-        guardian.setEmailAddress(guardianEmailAddress);
-        guardian.setHomeAddress(savedAddress);
-        Guardian savedGuardian = guardianRepository.save(guardian);
-
-        // Save Emergency Contact
-        Guardian emergencyContact = new Guardian();
-        emergencyContact.setFirstName(emergencyContactFirstName);
-        emergencyContact.setLastName(emergencyContactLastName);
-        emergencyContact.setPhoneNumber(emergencyContactPhoneNumber);
-        emergencyContact.setEmailAddress(emergencyContactEmailAddress);
-        emergencyContact.setIsEmergencyContact(true);
-        Guardian savedEmergencyContact = guardianRepository.save(emergencyContact);
-
-        // Save the Child
-        Child child = new Child();
-        child.setFirstName(childFirstName);
-        child.setLastName(childLastName);
-        child.setDateOfBirth(childDateOfBirth);
-        //GRAB AND SET ALLERGIES
-        child.setEmergencyContact(savedEmergencyContact);
-        child.addGuardianToChild(savedGuardian); // Set the saved Guardian in the Child
-        childRepository.save(child);
-
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            return  ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error During Registration");
+        };
         return ResponseEntity.ok("Registration successful");
     }
 }
