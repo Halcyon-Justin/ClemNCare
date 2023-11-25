@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import halcyon.clemncare.app.dto.RegistrationDTO;
+import halcyon.clemncare.app.dto.RegistrationRequest;
 import halcyon.clemncare.app.mappers.RegistrationMapper;
 import halcyon.clemncare.app.model.Child;
 import halcyon.clemncare.app.model.Guardian;
@@ -16,7 +17,6 @@ import halcyon.clemncare.app.repositories.ChildRepository;
 import halcyon.clemncare.app.repositories.GuardianRepository;
 import halcyon.clemncare.app.repositories.HomeAddressRepository;
 import halcyon.clemncare.app.services.RegistrationService;
-
 
 @Service
 public class RegistrationServiceImpl implements RegistrationService {
@@ -53,11 +53,43 @@ public class RegistrationServiceImpl implements RegistrationService {
             Child child = registrationMapper.mapChild(registrationDTO, guardian, emergencyContact);
             childRepository.save(child);
 
-            
         } catch (Exception e) {
             e.printStackTrace();
-            return  ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error During Registration");
-        };
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error During Registration");
+        }
+        ;
         return ResponseEntity.ok("Registration successful");
+    }
+
+    @Override
+    @Transactional
+    public ResponseEntity<String> registerChild(RegistrationRequest request) {
+        HomeAddress savedHomeAddress = homeAddressRepository.save(request.getHomeAddress());
+
+        try {
+
+            // Save Guardians
+            request.getGuardians().forEach(guardian -> {
+                guardian.setHomeAddress(savedHomeAddress);
+                guardianRepository.save(guardian);
+            });
+
+            // Save Emergency Contact
+            Guardian emergencyContact = request.getEmergencyContact();
+            emergencyContact.setHomeAddress(savedHomeAddress);
+            guardianRepository.save(emergencyContact);
+
+            // Save Child
+            Child child = request.getChild();
+            child.setGuardians(request.getGuardians());
+            child.setEmergencyContact(emergencyContact);
+            childRepository.save(child);
+
+            return ResponseEntity.ok("Registration successful");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error During Registration");
+        }
+
     }
 }

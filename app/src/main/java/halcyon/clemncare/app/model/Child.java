@@ -64,6 +64,11 @@ public class Child {
         return firstName + " " + lastName;
     }
 
+    public int getAge() {
+        LocalDate now = LocalDate.now();
+        return now.getYear() - dateOfBirth.getYear();
+    }
+
     public void addGuardianToChild(Guardian guardian) {
         this.guardians.add(guardian);
         guardian.getChildren().add(this);

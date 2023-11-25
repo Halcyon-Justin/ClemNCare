@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import halcyon.clemncare.app.dto.RegistrationDTO;
+import halcyon.clemncare.app.dto.RegistrationRequest;
 import halcyon.clemncare.app.services.RegistrationService;
 
 @RestController
@@ -17,17 +18,27 @@ public class RegistrationController {
     @Autowired
     private RegistrationService registrationService;
 
-    @PostMapping
-    public ResponseEntity<String> registerChildWithGuardianAndAddress(@RequestBody RegistrationDTO request) {
+    // @PostMapping
+    // public ResponseEntity<String> registerChildWithGuardianAndAddress(@RequestBody RegistrationDTO request) {
 
-        //TODO
-        // Handle Lists and Parse Enums for data from Request
+    //     if (request == null) {
+    //         return ResponseEntity.badRequest().body("Invalid request payload");
+    //     }
+
+    //     return registrationService.registerChildWithGuardianAndAddress(request);
+    // }
+
+    @PostMapping
+    public ResponseEntity<String> registerChild(@RequestBody RegistrationRequest request) {
+
         if (request == null) {
             return ResponseEntity.badRequest().body("Invalid request payload");
         }
 
-        return registrationService.registerChildWithGuardianAndAddress(request);
+        return registrationService.registerChild(request);
     }
+
+
 
 }
 
