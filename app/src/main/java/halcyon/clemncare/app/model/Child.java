@@ -1,7 +1,10 @@
 package halcyon.clemncare.app.model;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -43,12 +46,8 @@ public class Child {
     private Guardian emergencyContact;
 
     @ManyToMany
-    @JoinTable(
-        name = "child_guardian",
-        joinColumns = @JoinColumn(name = "child_id"),
-        inverseJoinColumns = @JoinColumn(name = "guardian_id")
-    )
-    private List<Guardian> guardians;
+    @JoinTable(name = "child_guardian", joinColumns = @JoinColumn(name = "child_id"), inverseJoinColumns = @JoinColumn(name = "guardian_id"))
+    private Set<Guardian> guardians = new HashSet<>();
 
     @ElementCollection
     @Enumerated(EnumType.STRING)
@@ -69,5 +68,30 @@ public class Child {
         this.guardians.add(guardian);
         guardian.getChildren().add(this);
     }
-}
 
+    @Override
+    public int hashCode() {
+        // Exclude guardians to avoid circular reference
+        return Objects.hash(id, firstName, lastName, dateOfBirth, allergies, frequency, isActive, notes,
+                emergencyContact, reportCards);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        Child child = (Child) o;
+        return Objects.equals(id, child.id) &&
+                Objects.equals(firstName, child.firstName) &&
+                Objects.equals(lastName, child.lastName) &&
+                Objects.equals(dateOfBirth, child.dateOfBirth) &&
+                Objects.equals(allergies, child.allergies) &&
+                Objects.equals(emergencyContact, child.emergencyContact) &&
+                Objects.equals(frequency, child.frequency) &&
+                Objects.equals(reportCards, child.reportCards) &&
+                Objects.equals(isActive, child.isActive) &&
+                Objects.equals(notes, child.notes);
+    }
+}

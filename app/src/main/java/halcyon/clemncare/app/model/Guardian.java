@@ -1,5 +1,6 @@
 package halcyon.clemncare.app.model;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -35,7 +36,7 @@ public class Guardian {
     private Relationship relationship;
 
     @ManyToMany(mappedBy = "guardians")
-    private Set<Child> children;
+    private Set<Child> children = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name = "home_address_id")

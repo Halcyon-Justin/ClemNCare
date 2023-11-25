@@ -18,10 +18,13 @@ public class RegistrationController {
     private RegistrationService registrationService;
 
     @PostMapping
-    public ResponseEntity<String> registerChild(@RequestBody RegistrationDTO request) {
+    public ResponseEntity<String> registerChildWithGuardianAndAddress(@RequestBody RegistrationDTO request) {
 
         //TODO
         // Handle Lists and Parse Enums for data from Request
+        if (request == null) {
+            return ResponseEntity.badRequest().body("Invalid request payload");
+        }
 
         return registrationService.registerChildWithGuardianAndAddress(request);
     }

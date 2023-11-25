@@ -39,6 +39,8 @@ public class RegistrationServiceImpl implements RegistrationService {
 
         try {
 
+            System.out.println(registrationDTO);
+
             HomeAddress address = registrationMapper.mapAddress(registrationDTO);
             homeAddressRepository.save(address);
 
