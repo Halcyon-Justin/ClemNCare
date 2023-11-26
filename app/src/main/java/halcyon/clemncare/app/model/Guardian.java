@@ -42,6 +42,7 @@ public class Guardian {
     @JoinColumn(name = "home_address_id")
     private HomeAddress homeAddress;
 
+    @Column(columnDefinition = "boolean default false")
     private Boolean isEmergencyContact;
 
     public String getName() {
@@ -53,4 +54,4 @@ public class Guardian {
         child.getGuardians().add(this);
     }
 
-}
+    }

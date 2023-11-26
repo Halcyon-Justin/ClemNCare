@@ -1,5 +1,9 @@
 package halcyon.clemncare.app.services.implementation;
 
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,9 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import halcyon.clemncare.app.dto.RegistrationDTO;
 import halcyon.clemncare.app.dto.RegistrationRequest;
-import halcyon.clemncare.app.mappers.RegistrationMapper;
 import halcyon.clemncare.app.model.Child;
 import halcyon.clemncare.app.model.Guardian;
 import halcyon.clemncare.app.model.HomeAddress;
@@ -30,59 +32,34 @@ public class RegistrationServiceImpl implements RegistrationService {
     @Autowired
     private HomeAddressRepository homeAddressRepository;
 
-    @Autowired
-    private RegistrationMapper registrationMapper;
-
-    @Override
-    @Transactional
-    public ResponseEntity<String> registerChildWithGuardianAndAddress(RegistrationDTO registrationDTO) {
-
-        try {
-
-            System.out.println(registrationDTO);
-
-            HomeAddress address = registrationMapper.mapAddress(registrationDTO);
-            homeAddressRepository.save(address);
-
-            Guardian guardian = registrationMapper.mapGuardian(registrationDTO, address);
-            guardianRepository.save(guardian);
-
-            Guardian emergencyContact = registrationMapper.mapEmergencyContact(registrationDTO);
-            guardianRepository.save(emergencyContact);
-
-            Child child = registrationMapper.mapChild(registrationDTO, guardian, emergencyContact);
-            childRepository.save(child);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error During Registration");
-        }
-        ;
-        return ResponseEntity.ok("Registration successful");
-    }
-
     @Override
     @Transactional
     public ResponseEntity<String> registerChild(RegistrationRequest request) {
-        HomeAddress savedHomeAddress = homeAddressRepository.save(request.getHomeAddress());
 
         try {
 
-            // Save Guardians
-            request.getGuardians().forEach(guardian -> {
-                guardian.setHomeAddress(savedHomeAddress);
-                guardianRepository.save(guardian);
-            });
+            // Save HomeAddresses of Guardians, Assign them to Guardians, then Save Guardians
+            Set<Guardian> savedGuardians = new HashSet<>();
+            for (Guardian guardian : request.getGuardians()) {
+            HomeAddress guardianHomeAddress = guardian.getHomeAddress();
+            HomeAddress savedGuardianHomeAddress = saveOrRetrieveHomeAddress(guardianHomeAddress);
 
-            // Save Emergency Contact
+            guardian.setHomeAddress(savedGuardianHomeAddress);
+            savedGuardians.add(guardianRepository.save(guardian));
+        }
+
+            // Save Emergency Contact Home Address, Assign it to Contact, then Save Contact
             Guardian emergencyContact = request.getEmergencyContact();
-            emergencyContact.setHomeAddress(savedHomeAddress);
-            guardianRepository.save(emergencyContact);
+            HomeAddress emergencyContactHomeAddress = emergencyContact.getHomeAddress();
+            HomeAddress savedEmergencyContactHomeAddress = saveOrRetrieveHomeAddress(emergencyContactHomeAddress);
+
+            emergencyContact.setHomeAddress(savedEmergencyContactHomeAddress);
+            Guardian savedEmergencyContact = guardianRepository.save(emergencyContact);
 
             // Save Child
             Child child = request.getChild();
-            child.setGuardians(request.getGuardians());
-            child.setEmergencyContact(emergencyContact);
+            child.setGuardians(savedGuardians);
+            child.setEmergencyContact(savedEmergencyContact);
             childRepository.save(child);
 
             return ResponseEntity.ok("Registration successful");
@@ -91,5 +68,17 @@ public class RegistrationServiceImpl implements RegistrationService {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error During Registration");
         }
 
+    }
+
+    private HomeAddress saveOrRetrieveHomeAddress(HomeAddress homeAddress) {
+        // Check if the HomeAddress already exists in the database
+        Optional<HomeAddress> existingHomeAddress = homeAddressRepository.findByStreetAddressAndCityAndStateAndZipCode(
+                homeAddress.getStreetAddress(),
+                homeAddress.getCity(),
+                homeAddress.getState(),
+                homeAddress.getZipCode()
+        );
+    
+        return existingHomeAddress.orElseGet(() -> homeAddressRepository.save(homeAddress));
     }
 }

@@ -2,7 +2,6 @@ package halcyon.clemncare.app.dto;
 
 import java.time.LocalDate;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -24,7 +23,7 @@ public class RegistrationDTO {
     private LocalDate childDateOfBirth;
     private List<String> childAllergies;
     private Guardian emergencyContact;
-    private List<Guardian> guardians;
+    private Set<Guardian> guardians;
     private List<DayOfWeek> childFrequency;
     private List<ReportCard> reportCards;
     private Boolean childIsActive;

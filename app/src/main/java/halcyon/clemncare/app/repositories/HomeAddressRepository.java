@@ -1,6 +1,7 @@
 package halcyon.clemncare.app.repositories;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -14,7 +15,7 @@ public interface HomeAddressRepository extends JpaRepository<HomeAddress, Long>{
 
     List<Guardian> findGuardiansById(Long id);
 
-    HomeAddress findByStreetAddressAndCityAndStateAndZipCode(String streetAddress, String city, StateCode state,
+    Optional<HomeAddress> findByStreetAddressAndCityAndStateAndZipCode(String streetAddress, String city, StateCode state,
             String zipCode);
     
 }
