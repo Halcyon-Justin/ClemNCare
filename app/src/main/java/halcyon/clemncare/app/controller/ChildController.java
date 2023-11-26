@@ -1,8 +1,8 @@
 package halcyon.clemncare.app.controller;
 
-import java.util.List;
-import java.util.Set;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,47 +13,53 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import halcyon.clemncare.app.model.Child;
-import halcyon.clemncare.app.model.Guardian;
+import halcyon.clemncare.app.response.ResponseHandler;
 import halcyon.clemncare.app.services.ChildService;
 
 @RestController
 @RequestMapping("/api/children")
 public class ChildController {
 
-    private final ChildService childService;
+    @Autowired
+    private ChildService childService;
 
     public ChildController(ChildService childService) {
         this.childService = childService;
     }
 
     @GetMapping("/")
-    public List<Child> getChildren() {
-        return childService.getAllChildren();
+    public ResponseEntity<Object> getChildren() {
+        return ResponseHandler.responseBuilder("Requested All Child Data", HttpStatus.OK,
+                childService.getAllChildren());
     }
 
     @GetMapping("/{id}")
-    public Child getChild(@PathVariable("id") Long id) {
-        return childService.getChild(id);
+    public ResponseEntity<Object> getChild(@PathVariable("id") Long id) {
+        return ResponseHandler.responseBuilder("Requested Specific Child Data", HttpStatus.OK,
+                childService.getChild(id));
     }
 
     @PostMapping
-    public String createChild(@RequestBody Child child) {
-        return childService.createChild(child);
+    public ResponseEntity<Object> createChild(@RequestBody Child child) {
+        return ResponseHandler.responseBuilder("Child Created Successfully", HttpStatus.CREATED,
+                childService.createChild(child));
     }
 
     @PutMapping("/{id}")
-    public String updateChild(@RequestBody Child child) {
-        return childService.updateChild(child);
+    public ResponseEntity<Object> updateChild(@RequestBody Child child) {
+        return ResponseHandler.responseBuilder("Child Information Updated Successfully", HttpStatus.OK,
+                childService.updateChild(child));
     }
 
     @DeleteMapping("/{id}")
-    public String deleteChild(@PathVariable("id") Long id) {
-        return childService.deleteChild(id);
+    public ResponseEntity<Object> deleteChild(@PathVariable("id") Long id) {
+        return ResponseHandler.responseBuilder("Child has been Deleted", HttpStatus.OK, childService.deleteChild(id));
     }
 
     @GetMapping("/find/{id}")
-    public Set<Guardian> findGuardiansByChildId(@PathVariable("id") Long id) {
-        return childService.findGuardiansByChildId(id);
+    public ResponseEntity<Object> findGuardiansByChildId(@PathVariable("id") Long id) {
+        return ResponseHandler.responseBuilder("All Related Guardians to Specific Child Found", HttpStatus.OK,
+                childService.findGuardiansByChildId(id));
     }
 
 }

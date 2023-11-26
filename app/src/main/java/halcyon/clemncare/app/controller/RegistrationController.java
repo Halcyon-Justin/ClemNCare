@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import halcyon.clemncare.app.dto.RegistrationRequest;
+import halcyon.clemncare.app.model.RegistrationRequest;
 import halcyon.clemncare.app.services.RegistrationService;
 
 @RestController
@@ -18,7 +18,7 @@ public class RegistrationController {
     private RegistrationService registrationService;
 
     @PostMapping
-    public ResponseEntity<String> registerChild(@RequestBody RegistrationRequest request) {
+    public ResponseEntity<Object> registerChild(@RequestBody RegistrationRequest request) {
 
         if (request == null) {
             return ResponseEntity.badRequest().body("Invalid request payload");
@@ -28,4 +28,3 @@ public class RegistrationController {
     }
 
 }
-

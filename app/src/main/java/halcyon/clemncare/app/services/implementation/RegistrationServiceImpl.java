@@ -11,13 +11,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import halcyon.clemncare.app.dto.RegistrationRequest;
 import halcyon.clemncare.app.model.Child;
 import halcyon.clemncare.app.model.Guardian;
 import halcyon.clemncare.app.model.HomeAddress;
+import halcyon.clemncare.app.model.RegistrationRequest;
 import halcyon.clemncare.app.repositories.ChildRepository;
 import halcyon.clemncare.app.repositories.GuardianRepository;
 import halcyon.clemncare.app.repositories.HomeAddressRepository;
+import halcyon.clemncare.app.response.ResponseHandler;
 import halcyon.clemncare.app.services.RegistrationService;
 
 @Service
@@ -34,7 +35,7 @@ public class RegistrationServiceImpl implements RegistrationService {
 
     @Override
     @Transactional
-    public ResponseEntity<String> registerChild(RegistrationRequest request) {
+    public ResponseEntity<Object> registerChild(RegistrationRequest request) {
 
         try {
 
@@ -62,10 +63,10 @@ public class RegistrationServiceImpl implements RegistrationService {
             child.setEmergencyContact(savedEmergencyContact);
             childRepository.save(child);
 
-            return ResponseEntity.ok("Registration successful");
+            return ResponseHandler.responseBuilder("Registration successful", HttpStatus.CREATED, childRepository.save(child));
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error During Registration");
+            return ResponseHandler.responseBuilder("Error During Registration", HttpStatus.INTERNAL_SERVER_ERROR, null);
         }
 
     }

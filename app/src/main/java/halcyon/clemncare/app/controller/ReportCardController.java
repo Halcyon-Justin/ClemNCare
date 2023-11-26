@@ -1,7 +1,8 @@
 package halcyon.clemncare.app.controller;
 
-import java.util.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,42 +13,44 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import halcyon.clemncare.app.model.ReportCard;
+import halcyon.clemncare.app.response.ResponseHandler;
 import halcyon.clemncare.app.services.ReportCardService;
 
 @RestController
 @RequestMapping("/api/reportcards")
 public class ReportCardController {
 
-    private final ReportCardService reportCardService;
-
-    public ReportCardController(ReportCardService reportCardService) {
-        this.reportCardService = reportCardService;
-    }
+    @Autowired
+    private ReportCardService reportCardService;
 
     @GetMapping("/{id}")
-    public ReportCard getReportCard(@PathVariable("id") Long id) {
-        return reportCardService.getReportCard(id);
+    public ResponseEntity<Object> getReportCard(@PathVariable("id") Long id) {
+        return ResponseHandler.responseBuilder("Report Card Created Successfully", HttpStatus.OK,
+                reportCardService.getReportCard(id));
     }
 
     @PostMapping
-    public String createReportCard(@RequestBody ReportCard reportCard) {
-        return reportCardService.createReportCard(reportCard);
+    public ResponseEntity<Object> createReportCard(@RequestBody ReportCard reportCard) {
+        return ResponseHandler.responseBuilder("Report Card Created Successfully", HttpStatus.CREATED,
+                reportCardService.createReportCard(reportCard));
     }
 
     @PutMapping("/{id}")
-    public String updateReportCard(@RequestBody ReportCard reportCard) {
-        return reportCardService.updateReportCard(reportCard);
+    public ResponseEntity<Object> updateReportCard(@RequestBody ReportCard reportCard) {
+        return ResponseHandler.responseBuilder("Report Card Updated Successfully", HttpStatus.OK,
+                reportCardService.updateReportCard(reportCard));
     }
 
     @DeleteMapping("/{id}")
-    public String deleteReportCard(@PathVariable("id") Long id) {
-        return reportCardService.deleteReportCard(id);
+    public ResponseEntity<Object> deleteReportCard(@PathVariable("id") Long id) {
+        return ResponseHandler.responseBuilder("Report Card Delted Successfully", HttpStatus.OK,
+                reportCardService.deleteReportCard(id));
     }
 
     @GetMapping("/find/{id}")
-    public List<ReportCard> findChildrenByReportCardId(@PathVariable("id") Long id) {
-        return reportCardService.getAllReportCardsByChildId(id);
+    public ResponseEntity<Object> findChildrenByReportCardId(@PathVariable("id") Long id) {
+        return ResponseHandler.responseBuilder("Child Found From Report Card", HttpStatus.OK,
+                reportCardService.getAllReportCardsByChildId(id));
     }
-   
-    
+
 }

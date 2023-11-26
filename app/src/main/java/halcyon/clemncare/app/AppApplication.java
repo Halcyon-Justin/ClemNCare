@@ -9,12 +9,11 @@ public class AppApplication {
         SpringApplication.run(AppApplication.class, args);
 
         //TODO
-        // LocalDate to Child DTO, how to?
-        // Verify if address or guardian exists, it assigns the ID to other objects
-        // Look into how to utilize Enums and LocalDateTime for objects in DTO
+        // Recursive Calling -- Need to sort Guardian and Child objects
         // Add logging
         // Add Response Entities
         // Add Error Handling
+        // Add Pagination for Report Cards
 
     }
 }

@@ -2,10 +2,10 @@ package halcyon.clemncare.app.services;
 
 import org.springframework.http.ResponseEntity;
 
-import halcyon.clemncare.app.dto.RegistrationRequest;
+import halcyon.clemncare.app.model.RegistrationRequest;
 
 public interface RegistrationService {
-    ResponseEntity<String> registerChild(RegistrationRequest request);
+    ResponseEntity<Object> registerChild(RegistrationRequest request);
 }
 
 

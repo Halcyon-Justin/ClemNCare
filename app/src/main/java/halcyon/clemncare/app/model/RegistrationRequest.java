@@ -1,10 +1,7 @@
-package halcyon.clemncare.app.dto;
+package halcyon.clemncare.app.model;
 
 import java.util.HashSet;
 import java.util.Set;
-
-import halcyon.clemncare.app.model.Child;
-import halcyon.clemncare.app.model.Guardian;
 
 import lombok.Data;
 
