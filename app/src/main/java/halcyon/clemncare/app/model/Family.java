@@ -2,6 +2,7 @@ package halcyon.clemncare.app.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,10 +27,10 @@ public class Family {
     @JoinColumn(name = "address_id")
     private HomeAddress address;
 
-    @OneToMany(mappedBy = "family")
+    @OneToMany(mappedBy = "family", cascade = CascadeType.ALL)
     private List<Child> children;
 
-    @OneToMany(mappedBy = "family")
+    @OneToMany(mappedBy = "family", cascade = CascadeType.ALL)
     private List<Guardian> guardians;
 
     @OneToOne

@@ -17,7 +17,7 @@ import halcyon.clemncare.app.response.ResponseHandler;
 import halcyon.clemncare.app.services.FamilyService;
 
 @RestController
-@RequestMapping("/api/family")
+@RequestMapping("/api/families")
 public class FamilyController {
 
     @Autowired

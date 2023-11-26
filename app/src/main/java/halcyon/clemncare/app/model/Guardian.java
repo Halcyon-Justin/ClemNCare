@@ -6,6 +6,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import halcyon.clemncare.app.enums.Relationship;
@@ -24,9 +26,12 @@ public class Guardian {
     private String phoneNumber;
     private String emailAddress;
 
+    @ManyToOne
+    @JoinColumn(name = "family_id")
+    private Family family;
+
     @Enumerated(EnumType.STRING)
     private Relationship relationship;
-
 
     public String getName() {
         return firstName + " " + lastName;

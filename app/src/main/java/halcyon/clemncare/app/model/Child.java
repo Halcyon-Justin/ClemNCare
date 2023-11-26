@@ -3,6 +3,8 @@ package halcyon.clemncare.app.model;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -34,6 +36,9 @@ public class Child {
     @JoinColumn(name = "family_id")
     private Family family;
 
+    @ElementCollection
+    @CollectionTable(name = "child_allergies", joinColumns = @JoinColumn(name = "child_id"))
+    @Column(name = "allergy")
     private List<String> allergies;
 
     @ElementCollection

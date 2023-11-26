@@ -60,9 +60,9 @@ public class RegistrationServiceImpl implements RegistrationService {
             family.setChildren(children);
             family.setGuardians(guardians);
             family.setEmergencyContact(emergencyContact);
+            familyRepository.save(family);
 
-            return ResponseHandler.responseBuilder("Registration successful", HttpStatus.CREATED,
-                    familyRepository.save(family));
+            return ResponseEntity.ok().body("Registration Successful");
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseHandler.responseBuilder("Error During Registration", HttpStatus.INTERNAL_SERVER_ERROR, null);
@@ -72,21 +72,25 @@ public class RegistrationServiceImpl implements RegistrationService {
 
     private void saveChildren(List<Child> children) {
         for (Child child : children) {
+            System.out.println(child.getFirstName());
             childRepository.save(child);
         }
     }
 
     private void saveGuardians(List<Guardian> guardians) {
         for (Guardian guardian : guardians) {
+            System.out.println(guardian.getFirstName());
             guardianRepository.save(guardian);
         }
     }
 
     private void saveAddress(HomeAddress address) {
+        System.out.println(address.getState());
         homeAddressRepository.save(address);
     }
 
     private void saveEmergencyContact(Guardian emergencyContact) {
+        System.out.println(emergencyContact.getFirstName());
         guardianRepository.save(emergencyContact);
     }
 }
