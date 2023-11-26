@@ -18,13 +18,13 @@ public class RegistrationController {
     private RegistrationService registrationService;
 
     @PostMapping
-    public ResponseEntity<Object> registerChild(@RequestBody RegistrationRequest request) {
+    public ResponseEntity<Object> registerNewFamily(@RequestBody RegistrationRequest request) {
 
         if (request == null) {
             return ResponseEntity.badRequest().body("Invalid request payload");
         }
 
-        return registrationService.registerChild(request);
+        return registrationService.registerNewFamily(request);
     }
 
 }

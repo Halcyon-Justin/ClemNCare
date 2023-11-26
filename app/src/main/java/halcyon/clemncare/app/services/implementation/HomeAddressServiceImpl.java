@@ -1,11 +1,8 @@
 package halcyon.clemncare.app.services.implementation;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import halcyon.clemncare.app.model.Guardian;
 import halcyon.clemncare.app.model.HomeAddress;
 import halcyon.clemncare.app.repositories.HomeAddressRepository;
 import halcyon.clemncare.app.services.HomeAddressService;
@@ -38,11 +35,5 @@ public class HomeAddressServiceImpl implements HomeAddressService {
     public HomeAddress getAddress(Long addressId) {
         return homeAddressRepository.getById(addressId);
     }
-
-    @Override
-    public List<Guardian> getGuardiansById(Long addressId) {
-        return homeAddressRepository.findGuardiansById(addressId);
-    }
-
 
 }

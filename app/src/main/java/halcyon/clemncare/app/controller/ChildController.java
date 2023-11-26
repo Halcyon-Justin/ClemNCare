@@ -23,10 +23,6 @@ public class ChildController {
     @Autowired
     private ChildService childService;
 
-    public ChildController(ChildService childService) {
-        this.childService = childService;
-    }
-
     @GetMapping("/")
     public ResponseEntity<Object> getChildren() {
         return ResponseHandler.responseBuilder("Requested All Child Data", HttpStatus.OK,
@@ -54,12 +50,6 @@ public class ChildController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteChild(@PathVariable("id") Long id) {
         return ResponseHandler.responseBuilder("Child has been Deleted", HttpStatus.OK, childService.deleteChild(id));
-    }
-
-    @GetMapping("/find/{id}")
-    public ResponseEntity<Object> findGuardiansByChildId(@PathVariable("id") Long id) {
-        return ResponseHandler.responseBuilder("All Related Guardians to Specific Child Found", HttpStatus.OK,
-                childService.findGuardiansByChildId(id));
     }
 
 }

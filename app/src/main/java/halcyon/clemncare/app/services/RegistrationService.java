@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import halcyon.clemncare.app.model.RegistrationRequest;
 
 public interface RegistrationService {
-    ResponseEntity<Object> registerChild(RegistrationRequest request);
+    ResponseEntity<Object> registerNewFamily(RegistrationRequest request);
 }
 
 

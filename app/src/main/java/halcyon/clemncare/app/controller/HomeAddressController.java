@@ -47,10 +47,4 @@ public class HomeAddressController {
                 homeAddressService.deleteAddress(id));
     }
 
-    @GetMapping("/find/{id}")
-    public ResponseEntity<Object> findGuardianByHomeAddressId(@PathVariable("id") Long id) {
-        return ResponseHandler.responseBuilder("Guardians Found with Specified Address", HttpStatus.OK,
-                homeAddressService.getGuardiansById(id));
-    }
-
 }

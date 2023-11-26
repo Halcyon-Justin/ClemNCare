@@ -53,9 +53,4 @@ public class GuardianController {
                 guardianService.deleteGuardian(id));
     }
 
-    @GetMapping("/find/{id}")
-    public ResponseEntity<Object> findChildrenByGuardianId(@PathVariable("id") Long id) {
-        return ResponseHandler.responseBuilder("Found Specific Children", HttpStatus.OK,
-                guardianService.findChildrenByGuardianId(id));
-    }
 }

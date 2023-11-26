@@ -1,8 +1,6 @@
 package halcyon.clemncare.app.services.implementation;
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -12,10 +10,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import halcyon.clemncare.app.model.Child;
+import halcyon.clemncare.app.model.Family;
 import halcyon.clemncare.app.model.Guardian;
 import halcyon.clemncare.app.model.HomeAddress;
 import halcyon.clemncare.app.model.RegistrationRequest;
 import halcyon.clemncare.app.repositories.ChildRepository;
+import halcyon.clemncare.app.repositories.FamilyRepository;
 import halcyon.clemncare.app.repositories.GuardianRepository;
 import halcyon.clemncare.app.repositories.HomeAddressRepository;
 import halcyon.clemncare.app.response.ResponseHandler;
@@ -33,37 +33,36 @@ public class RegistrationServiceImpl implements RegistrationService {
     @Autowired
     private HomeAddressRepository homeAddressRepository;
 
+    @Autowired
+    private FamilyRepository familyRepository;
+
     @Override
     @Transactional
-    public ResponseEntity<Object> registerChild(RegistrationRequest request) {
+    public ResponseEntity<Object> registerNewFamily(RegistrationRequest registrationRequest) {
 
         try {
 
-            // Save HomeAddresses of Guardians, Assign them to Guardians, then Save Guardians
-            Set<Guardian> savedGuardians = new HashSet<>();
-            for (Guardian guardian : request.getGuardians()) {
-            HomeAddress guardianHomeAddress = guardian.getHomeAddress();
-            HomeAddress savedGuardianHomeAddress = saveOrRetrieveHomeAddress(guardianHomeAddress);
+            // Extract data from RegistrationRequest
+            List<Child> children = registrationRequest.getChildren();
+            List<Guardian> guardians = registrationRequest.getGuardians();
+            HomeAddress address = registrationRequest.getAddress();
+            Guardian emergencyContact = registrationRequest.getEmergencyContact();
 
-            guardian.setHomeAddress(savedGuardianHomeAddress);
-            savedGuardians.add(guardianRepository.save(guardian));
-        }
+            // Save individual objects
+            saveChildren(children);
+            saveGuardians(guardians);
+            saveAddress(address);
+            saveEmergencyContact(emergencyContact);
 
-            // Save Emergency Contact Home Address, Assign it to Contact, then Save Contact
-            Guardian emergencyContact = request.getEmergencyContact();
-            HomeAddress emergencyContactHomeAddress = emergencyContact.getHomeAddress();
-            HomeAddress savedEmergencyContactHomeAddress = saveOrRetrieveHomeAddress(emergencyContactHomeAddress);
+            // Create and save the Family object
+            Family family = new Family();
+            family.setAddress(address);
+            family.setChildren(children);
+            family.setGuardians(guardians);
+            family.setEmergencyContact(emergencyContact);
 
-            emergencyContact.setHomeAddress(savedEmergencyContactHomeAddress);
-            Guardian savedEmergencyContact = guardianRepository.save(emergencyContact);
-
-            // Save Child
-            Child child = request.getChild();
-            child.setGuardians(savedGuardians);
-            child.setEmergencyContact(savedEmergencyContact);
-            childRepository.save(child);
-
-            return ResponseHandler.responseBuilder("Registration successful", HttpStatus.CREATED, childRepository.save(child));
+            return ResponseHandler.responseBuilder("Registration successful", HttpStatus.CREATED,
+                    familyRepository.save(family));
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseHandler.responseBuilder("Error During Registration", HttpStatus.INTERNAL_SERVER_ERROR, null);
@@ -71,15 +70,23 @@ public class RegistrationServiceImpl implements RegistrationService {
 
     }
 
-    private HomeAddress saveOrRetrieveHomeAddress(HomeAddress homeAddress) {
-        // Check if the HomeAddress already exists in the database
-        Optional<HomeAddress> existingHomeAddress = homeAddressRepository.findByStreetAddressAndCityAndStateAndZipCode(
-                homeAddress.getStreetAddress(),
-                homeAddress.getCity(),
-                homeAddress.getState(),
-                homeAddress.getZipCode()
-        );
-    
-        return existingHomeAddress.orElseGet(() -> homeAddressRepository.save(homeAddress));
+    private void saveChildren(List<Child> children) {
+        for (Child child : children) {
+            childRepository.save(child);
+        }
+    }
+
+    private void saveGuardians(List<Guardian> guardians) {
+        for (Guardian guardian : guardians) {
+            guardianRepository.save(guardian);
+        }
+    }
+
+    private void saveAddress(HomeAddress address) {
+        homeAddressRepository.save(address);
+    }
+
+    private void saveEmergencyContact(Guardian emergencyContact) {
+        guardianRepository.save(emergencyContact);
     }
 }
