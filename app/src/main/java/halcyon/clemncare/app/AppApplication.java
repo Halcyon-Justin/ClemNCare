@@ -9,10 +9,9 @@ public class AppApplication {
         SpringApplication.run(AppApplication.class, args);
 
         //TODO:
-        // Add Error Handling
-        // Add logging
         // Add Security
         // Add Authentication/Authorization
+        // Add Logging
         // Add Pagination for Report Cards
 
     }
