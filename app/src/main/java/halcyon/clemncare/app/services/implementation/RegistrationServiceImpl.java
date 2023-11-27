@@ -7,11 +7,11 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import halcyon.clemncare.app.dto.RegistrationRequest;
 import halcyon.clemncare.app.model.Child;
 import halcyon.clemncare.app.model.Family;
 import halcyon.clemncare.app.model.Guardian;
 import halcyon.clemncare.app.model.HomeAddress;
-import halcyon.clemncare.app.model.RegistrationRequest;
 import halcyon.clemncare.app.repositories.ChildRepository;
 import halcyon.clemncare.app.repositories.FamilyRepository;
 import halcyon.clemncare.app.repositories.GuardianRepository;

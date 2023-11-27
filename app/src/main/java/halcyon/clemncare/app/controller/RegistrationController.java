@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import halcyon.clemncare.app.dto.RegistrationRequest;
 import halcyon.clemncare.app.model.Family;
-import halcyon.clemncare.app.model.RegistrationRequest;
 import halcyon.clemncare.app.response.ResponseHandler;
 import halcyon.clemncare.app.services.RegistrationService;
 

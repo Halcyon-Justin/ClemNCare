@@ -14,11 +14,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import halcyon.clemncare.app.enums.DayOfWeek;
 import lombok.Data;
@@ -38,7 +36,7 @@ public class Child {
     @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "family_id")
-        private Family family;
+    private Family family;
 
     @ElementCollection
     @CollectionTable(name = "child_allergies", joinColumns = @JoinColumn(name = "child_id"))
@@ -48,9 +46,6 @@ public class Child {
     @ElementCollection
     @Enumerated(EnumType.STRING)
     private List<DayOfWeek> frequency;
-
-    @OneToMany(mappedBy = "child")
-    private List<ReportCard> reportCards;
 
     private Boolean isActive = false;
 

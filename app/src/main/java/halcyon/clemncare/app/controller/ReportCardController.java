@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import halcyon.clemncare.app.dto.ReportCardRequest;
 import halcyon.clemncare.app.model.ReportCard;
-import halcyon.clemncare.app.model.ReportCardRequest;
 import halcyon.clemncare.app.response.ResponseHandler;
 import halcyon.clemncare.app.services.ReportCardService;
 
@@ -30,16 +30,16 @@ public class ReportCardController {
                 reportCardService.getReportCard(id));
     }
 
-    @PostMapping
-    public ResponseEntity<Object> createReportCard(@RequestBody ReportCardRequest reportCardRequest) {
+    @PostMapping("/{id}")
+    public ResponseEntity<Object> createReportCard(@RequestBody ReportCardRequest reportCardRequest, @PathVariable("id") Long id) {
 
         if (reportCardRequest == null) {
             return ResponseEntity.badRequest().body("Invalid request payload");
         }
         try {
-            ReportCard createdReportCard = reportCardService.createReportCard(reportCardRequest);
+            ReportCard createdReportCard = reportCardService.createReportCard(reportCardRequest, id);
             return ResponseHandler.responseBuilder(
-                    "Created Report Card assigned to Child ID: " + createdReportCard.getChild().getId(),
+                    "Created Report Card assigned to Child ID: " + createdReportCard.getChildId(),
                     HttpStatus.CREATED, createdReportCard);
         } catch (Exception e) {
             e.printStackTrace();
