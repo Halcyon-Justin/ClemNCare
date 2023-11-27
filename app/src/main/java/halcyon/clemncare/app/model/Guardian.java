@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import halcyon.clemncare.app.enums.Relationship;
 import lombok.Data;
 
@@ -26,12 +28,15 @@ public class Guardian {
     private String phoneNumber;
     private String emailAddress;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "family_id")
     private Family family;
 
     @Enumerated(EnumType.STRING)
     private Relationship relationship;
+
+    private Boolean isEmergencyContact =  false;
 
     public String getName() {
         return firstName + " " + lastName;

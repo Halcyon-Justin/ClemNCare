@@ -17,6 +17,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import halcyon.clemncare.app.enums.DayOfWeek;
 import lombok.Data;
 
@@ -32,6 +34,7 @@ public class Child {
     private String lastName;
     private LocalDate dateOfBirth;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "family_id")
     private Family family;

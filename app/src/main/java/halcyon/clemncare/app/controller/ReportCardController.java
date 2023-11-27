@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import halcyon.clemncare.app.model.ReportCard;
+import halcyon.clemncare.app.model.ReportCardRequest;
 import halcyon.clemncare.app.response.ResponseHandler;
 import halcyon.clemncare.app.services.ReportCardService;
 
@@ -30,9 +31,21 @@ public class ReportCardController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> createReportCard(@RequestBody ReportCard reportCard) {
-        return ResponseHandler.responseBuilder("Report Card Created Successfully", HttpStatus.CREATED,
-                reportCardService.createReportCard(reportCard));
+    public ResponseEntity<Object> createReportCard(@RequestBody ReportCardRequest reportCardRequest) {
+
+        if (reportCardRequest == null) {
+            return ResponseEntity.badRequest().body("Invalid request payload");
+        }
+        try {
+            ReportCard createdReportCard = reportCardService.createReportCard(reportCardRequest);
+            return ResponseHandler.responseBuilder(
+                    "Created Report Card assigned to Child ID: " + createdReportCard.getChild().getId(),
+                    HttpStatus.CREATED, createdReportCard);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseHandler.responseBuilder("Error creating report card", HttpStatus.INTERNAL_SERVER_ERROR,
+                    null);
+        }
     }
 
     @PutMapping("/{id}")

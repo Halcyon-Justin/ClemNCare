@@ -12,6 +12,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import lombok.Data;
 
 @Data
@@ -27,9 +29,11 @@ public class Family {
     @JoinColumn(name = "address_id")
     private HomeAddress address;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "family", cascade = CascadeType.ALL)
     private List<Child> children;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "family", cascade = CascadeType.ALL)
     private List<Guardian> guardians;
 

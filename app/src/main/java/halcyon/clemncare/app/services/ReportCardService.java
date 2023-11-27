@@ -3,9 +3,10 @@ package halcyon.clemncare.app.services;
 import java.util.List;
 
 import halcyon.clemncare.app.model.ReportCard;
+import halcyon.clemncare.app.model.ReportCardRequest;
 
 public interface ReportCardService {
-    public String createReportCard(ReportCard reportCard);
+    public ReportCard createReportCard(ReportCardRequest reportCardRequest);
 
     public String updateReportCard(ReportCard reportCard);
 

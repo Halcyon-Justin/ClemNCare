@@ -1,7 +1,11 @@
 package halcyon.clemncare.app.model;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,7 +31,12 @@ public class ReportCard {
 
     private Boolean hasNapped;
     private String notes;
-    private String sendTo;
+
+    @ElementCollection
+    @CollectionTable(name = "sendTo_Child", joinColumns = @JoinColumn(name = "child_id"))
+    @Column(name = "sendTo")
+    private List<String> sendTo;
+    
     private Date reportCardDate;
 
 }

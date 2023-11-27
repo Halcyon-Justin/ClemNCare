@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import halcyon.clemncare.app.model.Family;
 import halcyon.clemncare.app.model.RegistrationRequest;
 import halcyon.clemncare.app.response.ResponseHandler;
 import halcyon.clemncare.app.services.RegistrationService;
@@ -20,13 +21,19 @@ public class RegistrationController {
     private RegistrationService registrationService;
 
     @PostMapping
-    public ResponseEntity<Object> registerNewFamily(@RequestBody RegistrationRequest request) {
+    public ResponseEntity<Object> registerNewFamily(@RequestBody RegistrationRequest registrationRequest) {
 
-        if (request == null) {
+        if (registrationRequest == null) {
             return ResponseEntity.badRequest().body("Invalid request payload");
         }
-
-        return ResponseHandler.responseBuilder("Registration Success", HttpStatus.CREATED, registrationService.registerNewFamily(request));
+        try {
+            Family createdFamily = registrationService.registerNewFamily(registrationRequest);
+            return ResponseHandler.responseBuilder("Created Family", HttpStatus.CREATED, createdFamily);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseHandler.responseBuilder("Error creating report card", HttpStatus.INTERNAL_SERVER_ERROR,
+                    null);
+        }
     }
 
 }
