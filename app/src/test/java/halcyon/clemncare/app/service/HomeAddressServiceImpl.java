@@ -1,4 +1,4 @@
-package halcyon.clemncare.app.services;
+package halcyon.clemncare.app.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals; // Added import
 import static org.mockito.ArgumentMatchers.any;
@@ -14,7 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import halcyon.clemncare.app.model.HomeAddress;
 import halcyon.clemncare.app.repositories.HomeAddressRepository;
-import halcyon.clemncare.app.services.implementation.HomeAddressServiceImpl;
+import halcyon.clemncare.app.service.implementation.HomeAddressServiceImpl;
 
 @ExtendWith(MockitoExtension.class)
 class HomeAddressServiceImplTest {

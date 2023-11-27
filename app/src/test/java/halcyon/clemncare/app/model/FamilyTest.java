@@ -1,4 +1,4 @@
-package halcyon.clemncare.app.models;
+package halcyon.clemncare.app.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -6,11 +6,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
-
-import halcyon.clemncare.app.model.Child;
-import halcyon.clemncare.app.model.Family;
-import halcyon.clemncare.app.model.Guardian;
-import halcyon.clemncare.app.model.HomeAddress;
 
 class FamilyTest {
 

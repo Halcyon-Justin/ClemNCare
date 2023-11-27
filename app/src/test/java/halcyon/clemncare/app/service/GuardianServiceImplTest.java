@@ -1,4 +1,4 @@
-package halcyon.clemncare.app.services;
+package halcyon.clemncare.app.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -18,7 +18,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import halcyon.clemncare.app.model.Guardian;
 import halcyon.clemncare.app.repositories.GuardianRepository;
-import halcyon.clemncare.app.services.implementation.GuardianServiceImpl;
+import halcyon.clemncare.app.service.implementation.GuardianServiceImpl;
 
 @ExtendWith(MockitoExtension.class)
 class GuardianServiceImplTest {

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import halcyon.clemncare.app.model.Family;
 import halcyon.clemncare.app.response.ResponseHandler;
-import halcyon.clemncare.app.services.FamilyService;
+import halcyon.clemncare.app.service.FamilyService;
 
 @RestController
 @RequestMapping("/api/families")

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import halcyon.clemncare.app.dto.ReportCardRequest;
 import halcyon.clemncare.app.model.ReportCard;
 import halcyon.clemncare.app.response.ResponseHandler;
-import halcyon.clemncare.app.services.ReportCardService;
+import halcyon.clemncare.app.service.ReportCardService;
 
 @RestController
 @RequestMapping("/api/reportcards")

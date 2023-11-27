@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import halcyon.clemncare.app.model.Guardian;
 import halcyon.clemncare.app.response.ResponseHandler;
-import halcyon.clemncare.app.services.GuardianService;
+import halcyon.clemncare.app.service.GuardianService;
 
 @RestController
 @RequestMapping("/api/guardian")

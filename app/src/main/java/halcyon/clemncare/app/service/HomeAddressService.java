@@ -1,4 +1,4 @@
-package halcyon.clemncare.app.services;
+package halcyon.clemncare.app.service;
 
 import halcyon.clemncare.app.model.HomeAddress;
 

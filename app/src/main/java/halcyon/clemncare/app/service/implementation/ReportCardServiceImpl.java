@@ -1,4 +1,4 @@
-package halcyon.clemncare.app.services.implementation;
+package halcyon.clemncare.app.service.implementation;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,7 +15,7 @@ import halcyon.clemncare.app.model.Guardian;
 import halcyon.clemncare.app.model.ReportCard;
 import halcyon.clemncare.app.repositories.ChildRepository;
 import halcyon.clemncare.app.repositories.ReportCardRepository;
-import halcyon.clemncare.app.services.ReportCardService;
+import halcyon.clemncare.app.service.ReportCardService;
 
 @Service
 public class ReportCardServiceImpl implements ReportCardService {

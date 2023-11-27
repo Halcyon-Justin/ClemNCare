@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import halcyon.clemncare.app.dto.RegistrationRequest;
 import halcyon.clemncare.app.model.Family;
 import halcyon.clemncare.app.response.ResponseHandler;
-import halcyon.clemncare.app.services.RegistrationService;
+import halcyon.clemncare.app.service.RegistrationService;
 
 @RestController
 @RequestMapping("/api/daycare/registration")

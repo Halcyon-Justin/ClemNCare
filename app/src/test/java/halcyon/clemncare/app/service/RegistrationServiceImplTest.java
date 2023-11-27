@@ -1,4 +1,4 @@
-package halcyon.clemncare.app.services;
+package halcyon.clemncare.app.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -24,7 +24,7 @@ import halcyon.clemncare.app.repositories.ChildRepository;
 import halcyon.clemncare.app.repositories.FamilyRepository;
 import halcyon.clemncare.app.repositories.GuardianRepository;
 import halcyon.clemncare.app.repositories.HomeAddressRepository;
-import halcyon.clemncare.app.services.implementation.RegistrationServiceImpl;
+import halcyon.clemncare.app.service.implementation.RegistrationServiceImpl;
 
 @ExtendWith(MockitoExtension.class)
 class RegistrationServiceImplTest {

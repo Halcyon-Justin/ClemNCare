@@ -1,10 +1,8 @@
-package halcyon.clemncare.app.models;
+package halcyon.clemncare.app.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
-
-import halcyon.clemncare.app.model.Guardian;
 
 class GuardianTest {
 

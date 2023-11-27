@@ -1,4 +1,4 @@
-package halcyon.clemncare.app.services;
+package halcyon.clemncare.app.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -18,7 +18,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import halcyon.clemncare.app.model.Child;
 import halcyon.clemncare.app.repositories.ChildRepository;
-import halcyon.clemncare.app.services.implementation.ChildServiceImpl;
+import halcyon.clemncare.app.service.implementation.ChildServiceImpl;
 
 @ExtendWith(MockitoExtension.class)
 class ChildServiceImplTest {

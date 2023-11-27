@@ -1,4 +1,4 @@
-package halcyon.clemncare.app.services.implementation;
+package halcyon.clemncare.app.service.implementation;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import halcyon.clemncare.app.model.Family;
 import halcyon.clemncare.app.repositories.FamilyRepository;
-import halcyon.clemncare.app.services.FamilyService;
+import halcyon.clemncare.app.service.FamilyService;
 
 @Service
 public class FamilyServiceImpl implements FamilyService {

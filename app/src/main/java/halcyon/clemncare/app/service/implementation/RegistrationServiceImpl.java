@@ -1,4 +1,4 @@
-package halcyon.clemncare.app.services.implementation;
+package halcyon.clemncare.app.service.implementation;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ import halcyon.clemncare.app.repositories.ChildRepository;
 import halcyon.clemncare.app.repositories.FamilyRepository;
 import halcyon.clemncare.app.repositories.GuardianRepository;
 import halcyon.clemncare.app.repositories.HomeAddressRepository;
-import halcyon.clemncare.app.services.RegistrationService;
+import halcyon.clemncare.app.service.RegistrationService;
 
 @Service
 public class RegistrationServiceImpl implements RegistrationService {

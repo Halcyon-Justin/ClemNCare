@@ -1,4 +1,4 @@
-package halcyon.clemncare.app.services;
+package halcyon.clemncare.app.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -24,7 +24,7 @@ import halcyon.clemncare.app.model.Guardian;
 import halcyon.clemncare.app.model.ReportCard;
 import halcyon.clemncare.app.repositories.ChildRepository;
 import halcyon.clemncare.app.repositories.ReportCardRepository;
-import halcyon.clemncare.app.services.implementation.ReportCardServiceImpl;
+import halcyon.clemncare.app.service.implementation.ReportCardServiceImpl;
 
 @ExtendWith(MockitoExtension.class)
 class ReportCardServiceImplTest {

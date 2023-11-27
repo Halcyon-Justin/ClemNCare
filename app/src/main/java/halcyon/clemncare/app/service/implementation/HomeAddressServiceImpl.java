@@ -1,11 +1,11 @@
-package halcyon.clemncare.app.services.implementation;
+package halcyon.clemncare.app.service.implementation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import halcyon.clemncare.app.model.HomeAddress;
 import halcyon.clemncare.app.repositories.HomeAddressRepository;
-import halcyon.clemncare.app.services.HomeAddressService;
+import halcyon.clemncare.app.service.HomeAddressService;
 
 @Service
 public class HomeAddressServiceImpl implements HomeAddressService {

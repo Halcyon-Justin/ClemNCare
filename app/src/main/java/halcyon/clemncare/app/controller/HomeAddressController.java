@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import halcyon.clemncare.app.model.HomeAddress;
 import halcyon.clemncare.app.response.ResponseHandler;
-import halcyon.clemncare.app.services.HomeAddressService;
+import halcyon.clemncare.app.service.HomeAddressService;
 
 @RestController
 @RequestMapping("/api/homeaddresses")
