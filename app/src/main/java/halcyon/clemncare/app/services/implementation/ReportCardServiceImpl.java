@@ -37,7 +37,10 @@ public class ReportCardServiceImpl implements ReportCardService {
             Child child = childRepository.getById(childId);
 
             Family family = child.getFamily();
-            List<String> guardianEmails = family.getGuardians().stream().map(Guardian::getEmailAddress).collect(Collectors.toList());
+            List<String> guardianEmails = family.getGuardians().stream()
+                    .filter(guardian -> Boolean.FALSE.equals(guardian.getIsEmergencyContact()))
+                    .map(Guardian::getEmailAddress)
+                    .collect(Collectors.toList());
 
             // Create a new ReportCard object
             ReportCard reportCard = new ReportCard();
@@ -45,7 +48,6 @@ public class ReportCardServiceImpl implements ReportCardService {
             reportCard.setHasNapped(reportCardRequest.getHasNapped());
             reportCard.setNotes(reportCardRequest.getNotes());
             reportCard.setSendTo(guardianEmails);
-            reportCard.setReportCardDate(reportCardRequest.getReportCardDate());
 
             // Save the ReportCard
             reportCard = reportCardRepository.save(reportCard);
@@ -78,5 +80,5 @@ public class ReportCardServiceImpl implements ReportCardService {
     public List<ReportCard> getAllReportCardsByChildId(Long childId) {
         return reportCardRepository.findByChildId(childId);
     }
-    
+
 }
