@@ -30,11 +30,11 @@ public class Family {
     private HomeAddress address;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "family", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "family", cascade = CascadeType.PERSIST)
     private List<Child> children;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "family", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "family", cascade = CascadeType.PERSIST)
     private List<Guardian> guardians;
 
     @OneToOne

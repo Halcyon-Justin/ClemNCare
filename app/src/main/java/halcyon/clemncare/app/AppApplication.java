@@ -9,10 +9,10 @@ public class AppApplication {
         SpringApplication.run(AppApplication.class, args);
 
         //TODO:
-        // Refactor Registration Stuff to Family Controller, etc.
-        // Add logging
-        // Add Response Entities
         // Add Error Handling
+        // Add logging
+        // Add Security
+        // Add Authentication/Authorization
         // Add Pagination for Report Cards
 
     }

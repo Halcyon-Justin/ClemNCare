@@ -54,16 +54,13 @@ public class RegistrationServiceImpl implements RegistrationService {
 
         // Set family_id Parameter for each object
         emergencyContact.setFamily(family);
-        guardianRepository.save(emergencyContact);
 
         for (Child child : children) {
             child.setFamily(family);
-            childRepository.save(child);
         }
 
         for (Guardian guardian : guardians) {
             guardian.setFamily(family);
-            guardianRepository.save(guardian);
         }
 
         family.setAddress(address);

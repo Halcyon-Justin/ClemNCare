@@ -27,4 +27,8 @@ public class HomeAddress {
 
     private String zipCode;
 
+    public String getAddressDetails() {
+        return String.format("%s, %s, %s %s", streetAddress, city, state, zipCode);
+    }
+
 }

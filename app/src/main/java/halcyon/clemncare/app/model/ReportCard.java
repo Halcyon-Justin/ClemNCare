@@ -37,4 +37,9 @@ public class ReportCard {
     
     private Date reportCardDate;
 
+    public String getReportCardDetails() {
+        return String.format("Report Card Details: Has Napped: %s, Notes: %s, Send To: %s",
+                hasNapped, notes, sendTo != null ? sendTo.toString() : "N/A");
+    }
+
 }
