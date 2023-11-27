@@ -35,7 +35,7 @@ public class GuardianServiceImpl implements GuardianService{
 
     @Override
     public Guardian getGuardian(Long guardianId) {
-        return guardianRepository.findById(guardianId).get();
+        return guardianRepository.findById(guardianId).orElse(null);
     }
 
     @Override

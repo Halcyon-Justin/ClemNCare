@@ -33,7 +33,7 @@ public class HomeAddressServiceImpl implements HomeAddressService {
 
     @Override
     public HomeAddress getAddress(Long addressId) {
-        return homeAddressRepository.getById(addressId);
+        return homeAddressRepository.findById(addressId).orElse(null);
     }
 
 }

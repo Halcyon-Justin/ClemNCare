@@ -60,7 +60,7 @@ public class ReportCardController {
                 reportCardService.deleteReportCard(id));
     }
 
-    @GetMapping("/find/{id}")
+    @GetMapping("/find/id/{id}")
     public ResponseEntity<Object> findChildrenByReportCardId(@PathVariable("id") Long id) {
         return ResponseHandler.responseBuilder("Child Found From Report Card", HttpStatus.OK,
                 reportCardService.getAllReportCardsByChildId(id));

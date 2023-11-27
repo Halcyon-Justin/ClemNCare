@@ -22,18 +22,12 @@ public class RegistrationController {
 
     @PostMapping
     public ResponseEntity<Object> registerNewFamily(@RequestBody RegistrationRequest registrationRequest) {
-
         if (registrationRequest == null) {
             return ResponseEntity.badRequest().body("Invalid request payload");
         }
-        try {
-            Family createdFamily = registrationService.registerNewFamily(registrationRequest);
-            return ResponseHandler.responseBuilder("Created Family", HttpStatus.CREATED, createdFamily);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseHandler.responseBuilder("Error creating report card", HttpStatus.INTERNAL_SERVER_ERROR,
-                    null);
-        }
-    }
 
+        Family createdFamily = registrationService.registerNewFamily(registrationRequest);
+        return ResponseHandler.responseBuilder("Created Family", HttpStatus.CREATED, createdFamily);
+    }
 }
+

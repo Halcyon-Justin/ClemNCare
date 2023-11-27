@@ -1,5 +1,8 @@
 package halcyon.clemncare.app.controller;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,10 +32,28 @@ public class ChildController {
                 childService.getAllChildren());
     }
 
+    @GetMapping("/find/ages/{age}")
+    public ResponseEntity<Object> getChildrenByAge(@PathVariable("age") int age) {
+        List<Child> children = childService.findChildrenByAge(age);
+
+        if (children != null) {
+            return ResponseHandler.responseBuilder("Children found for the specified age", HttpStatus.OK,
+                    children);
+        } else {
+            return ResponseHandler.responseBuilder("No children found for the specified age", HttpStatus.NOT_FOUND,
+                    null);
+        }
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Object> getChild(@PathVariable("id") Long id) {
-        return ResponseHandler.responseBuilder("Requested Specific Child Data", HttpStatus.OK,
-                childService.getChild(id));
+        Optional<Child> childOptional = Optional.ofNullable(childService.getChild(id));
+
+        if (childOptional.isPresent()) {
+            return ResponseHandler.responseBuilder("Requested Specific Child Data", HttpStatus.OK, childOptional.get());
+        } else {
+            return ResponseHandler.responseBuilder("Child not found", HttpStatus.NOT_FOUND, null);
+        }
     }
 
     @PostMapping

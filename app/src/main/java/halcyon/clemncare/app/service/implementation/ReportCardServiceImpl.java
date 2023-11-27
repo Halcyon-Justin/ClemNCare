@@ -70,7 +70,7 @@ public class ReportCardServiceImpl implements ReportCardService {
 
     @Override
     public ReportCard getReportCard(Long reportCardId) {
-        return reportCardRepository.findById(reportCardId).get();
+        return reportCardRepository.findById(reportCardId).orElse(null);
     }
 
     @Override

@@ -35,7 +35,7 @@ public class FamilyServiceImpl implements FamilyService {
 
     @Override
     public Family getFamily(Long familyId) {
-       return familyRepository.findById(familyId).get();
+       return familyRepository.findById(familyId).orElse(null);
     
     }
 

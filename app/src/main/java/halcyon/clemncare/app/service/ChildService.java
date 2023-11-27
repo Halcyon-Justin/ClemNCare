@@ -14,4 +14,6 @@ public interface ChildService {
     public Child getChild(Long childId);
 
     public List<Child> getAllChildren();
+
+    public List<Child> findChildrenByAge(int age);
 }
