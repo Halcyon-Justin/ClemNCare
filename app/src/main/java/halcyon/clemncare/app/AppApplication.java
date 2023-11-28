@@ -1,7 +1,13 @@
 package halcyon.clemncare.app;
 
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import halcyon.clemncare.app.model.User;
+import halcyon.clemncare.app.repositories.UserRepository;
 
 @SpringBootApplication
 public class AppApplication {
@@ -9,11 +15,19 @@ public class AppApplication {
         SpringApplication.run(AppApplication.class, args);
 
         //TODO:
+        // Add Swagger for API Documentation
         // Add Security
         // Add Authentication/Authorization
         // Add Logging
         // Add Pagination for Report Cards
-
     }
-}
 
+    @Bean
+    CommandLineRunner commandLineRunner(UserRepository users, PasswordEncoder encoder) {
+        return args -> {
+            users.save(new User("user", encoder.encode("password"), "ROLE_USER"));
+            users.save(new User("admin", encoder.encode("password"), "ROLE_USER,ROLE_ADMIN"));
+        };
+    }
+
+}
