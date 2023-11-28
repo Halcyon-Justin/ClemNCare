@@ -1,6 +1,7 @@
 package halcyon.clemncare.app.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -26,7 +27,7 @@ public class ReportCardController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Object> getReportCard(@PathVariable("id") Long id) {
-        return ResponseHandler.responseBuilder("Report Card Created Successfully", HttpStatus.OK,
+        return ResponseHandler.responseBuilder("Report Card Retrieved Successfully", HttpStatus.OK,
                 reportCardService.getReportCard(id));
     }
 
@@ -60,10 +61,10 @@ public class ReportCardController {
                 reportCardService.deleteReportCard(id));
     }
 
-    @GetMapping("/find/id/{id}")
-    public ResponseEntity<Object> findChildrenByReportCardId(@PathVariable("id") Long id) {
-        return ResponseHandler.responseBuilder("Child Found From Report Card", HttpStatus.OK,
-                reportCardService.getAllReportCardsByChildId(id));
+    @GetMapping("/find/ids/{id}")
+    public ResponseEntity<Object> findAllReportCardsByChildId(@PathVariable("id") Long id, Pageable pageable) {
+        return ResponseHandler.responseBuilder("Report Cards for Child ID: " + id, HttpStatus.OK,
+        reportCardService.getReportCardsByChildId(id, pageable));
     }
 
 }

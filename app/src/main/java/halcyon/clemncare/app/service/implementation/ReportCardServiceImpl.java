@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import halcyon.clemncare.app.dto.ReportCardRequest;
@@ -74,8 +76,8 @@ public class ReportCardServiceImpl implements ReportCardService {
     }
 
     @Override
-    public List<ReportCard> getAllReportCardsByChildId(Long childId) {
-        return reportCardRepository.findByChildId(childId);
+    public Page<ReportCard> getReportCardsByChildId(Long childId, Pageable pageable) {
+        return reportCardRepository.findByChildId(childId, pageable);
     }
 
 }

@@ -1,6 +1,7 @@
 package halcyon.clemncare.app.service;
 
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import halcyon.clemncare.app.dto.ReportCardRequest;
 import halcyon.clemncare.app.model.ReportCard;
@@ -14,6 +15,6 @@ public interface ReportCardService {
 
     public ReportCard getReportCard(Long reportCardId);
 
-    public List<ReportCard> getAllReportCardsByChildId(Long id);
+    public Page<ReportCard> getReportCardsByChildId(Long childId, Pageable pageable);
 
 }

@@ -15,11 +15,10 @@ public class AppApplication {
         SpringApplication.run(AppApplication.class, args);
 
         //TODO:
-        // Add Swagger for API Documentation
+        // Add Swagger for API Documentation -- might work best when log in is done
         // Add Security
         // Add Authentication/Authorization
         // Add Logging
-        // Add Pagination for Report Cards
     }
 
     @Bean
