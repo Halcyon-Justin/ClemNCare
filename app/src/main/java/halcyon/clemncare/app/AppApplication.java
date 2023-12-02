@@ -15,6 +15,7 @@ public class AppApplication {
         SpringApplication.run(AppApplication.class, args);
 
         //TODO:
+        // Add Billing -- create system for potential payments and manage invoices for admin
         // Add Swagger for API Documentation -- might work best when log in is done
         // Add Security
         // Add Authentication/Authorization

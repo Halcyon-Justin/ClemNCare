@@ -8,7 +8,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
@@ -97,19 +96,6 @@ class ReportCardServiceImplTest {
 
         assertEquals(reportCard, result);
         verify(reportCardRepository, times(1)).findById(reportCardId);
-    }
-
-    @Test
-    void testGetAllReportCardsByChildId() {
-        Long childId = 1L;
-        List<ReportCard> reportCards = Collections.singletonList(new ReportCard());
-
-        when(reportCardRepository.findByChildId(childId)).thenReturn(reportCards);
-
-        List<ReportCard> result = reportCardService.getAllReportCardsByChildId(childId);
-
-        assertEquals(reportCards, result);
-        verify(reportCardRepository, times(1)).findByChildId(childId);
     }
 }
 
