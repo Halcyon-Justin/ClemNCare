@@ -16,7 +16,7 @@ MySQL DB
 
 
 To clean application:
-mvn clean install -DskipTests
+$ mvn clean install -DskipTests
 
 To Run via command line:
 mvn spring-boot:run
