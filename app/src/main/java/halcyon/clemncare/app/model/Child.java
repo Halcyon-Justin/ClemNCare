@@ -2,6 +2,7 @@ package halcyon.clemncare.app.model;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -9,6 +10,7 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -43,9 +45,11 @@ public class Child {
     @Column(name = "allergy")
     private List<String> allergies;
 
-    @ElementCollection
+    @ElementCollection(targetClass = DayOfWeek.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "child_days_of_week", joinColumns = @JoinColumn(name = "child_id"))
     @Enumerated(EnumType.STRING)
-    private List<DayOfWeek> frequency;
+    @Column(name = "day_of_week")
+    private Set<DayOfWeek> frequency;
 
     private Boolean isActive = false;
 
@@ -58,5 +62,9 @@ public class Child {
     public int getAge() {
         LocalDate now = LocalDate.now();
         return now.getYear() - dateOfBirth.getYear();
+    }
+
+    public int getFrequencyInNumber() {
+        return frequency.size();
     }
 }

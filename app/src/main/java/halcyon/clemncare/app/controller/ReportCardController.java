@@ -31,14 +31,14 @@ public class ReportCardController {
                 reportCardService.getReportCard(id));
     }
 
-    @PostMapping("/{id}")
-    public ResponseEntity<Object> createReportCard(@RequestBody ReportCardRequest reportCardRequest, @PathVariable("id") Long id) {
+    @PostMapping("/{childId}")
+    public ResponseEntity<Object> createReportCard(@RequestBody ReportCardRequest reportCardRequest, @PathVariable("childId") Long childId) {
 
         if (reportCardRequest == null) {
             return ResponseEntity.badRequest().body("Invalid request payload");
         }
         try {
-            ReportCard createdReportCard = reportCardService.createReportCard(reportCardRequest, id);
+            ReportCard createdReportCard = reportCardService.createReportCard(reportCardRequest, childId);
             return ResponseHandler.responseBuilder(
                     "Created Report Card assigned to Child ID: " + createdReportCard.getChildId(),
                     HttpStatus.CREATED, createdReportCard);

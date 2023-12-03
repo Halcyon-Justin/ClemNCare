@@ -38,7 +38,6 @@ public class ReportCardServiceImpl implements ReportCardService {
 
             Family family = child.getFamily();
             List<String> guardianEmails = family.getGuardians().stream()
-                    .filter(guardian -> Boolean.FALSE.equals(guardian.getIsEmergencyContact()))
                     .map(Guardian::getEmailAddress)
                     .collect(Collectors.toList());
 

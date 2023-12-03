@@ -27,7 +27,7 @@ public class RegistrationController {
         }
 
         Family createdFamily = registrationService.registerNewFamily(registrationRequest);
-        return ResponseHandler.responseBuilder("Created Family", HttpStatus.CREATED, createdFamily);
+        return ResponseHandler.responseBuilder("Registered Family", HttpStatus.CREATED, createdFamily);
     }
 }
 

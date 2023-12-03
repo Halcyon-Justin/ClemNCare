@@ -1,17 +1,17 @@
 package halcyon.clemncare.app.model;
 
-import java.util.List;
+import java.util.Date;
 
-import javax.persistence.CollectionTable;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import halcyon.clemncare.app.listeners.EntityListener;
 import lombok.Data;
@@ -20,24 +20,24 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @Entity
-@Table(name = "report_card")
+@Table(name = "invoice")
 @EntityListeners(EntityListener.class)
 @EqualsAndHashCode(callSuper = false)
-public class ReportCard extends TimeStampedEntity {
+public class Invoice extends TimeStampedEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "child_id")
-    private Long childId;
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "family_id")
+    private Family family;
 
-    private Boolean hasNapped;
-    private String notes;
+    private Date dueDate;
 
-    @ElementCollection
-    @CollectionTable(name = "sendTo_Child", joinColumns = @JoinColumn(name = "child_id"))
-    @Column(name = "sendTo")
-    private List<String> sendTo;
+    private Long amountDue;
 
+    private Boolean isPaid = false;
+    
 }

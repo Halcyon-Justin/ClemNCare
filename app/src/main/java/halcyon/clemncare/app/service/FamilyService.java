@@ -2,6 +2,7 @@ package halcyon.clemncare.app.service;
 
 import java.util.List;
 
+import halcyon.clemncare.app.model.Child;
 import halcyon.clemncare.app.model.Family;
 
 public interface FamilyService {
@@ -14,5 +15,7 @@ public interface FamilyService {
     public Family getFamily(Long familyId);
 
     public List<Family> getAllFamilies();
+
+    public List<Child> getActiveChildrenFromFamilyId(Long familyId);
     
 }
