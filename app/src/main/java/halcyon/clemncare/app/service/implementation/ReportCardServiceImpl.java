@@ -3,8 +3,13 @@ package halcyon.clemncare.app.service.implementation;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.beans.PropertyDescriptor;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.BeanWrapper;
+import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -62,7 +67,7 @@ public class ReportCardServiceImpl implements ReportCardService {
         Optional<ReportCard> optionalReportCard = reportCardRepository.findById(id);
         if (optionalReportCard.isPresent()) {
             ReportCard existingReportCard = optionalReportCard.get();
-            BeanUtils.copyProperties(reportCardDTO, existingReportCard);
+            BeanUtils.copyProperties(reportCardDTO, existingReportCard,getNullPropertyNames(reportCardDTO));
             return reportCardRepository.save(existingReportCard);
         } else {
             throw new ReportCardNotFoundException("Report Card with ID " + id + " not found");
@@ -90,7 +95,7 @@ public class ReportCardServiceImpl implements ReportCardService {
         reportCard.setHasNapped(reportCardDTO.isHasNapped());
         reportCard.setNotes(reportCardDTO.getNotes());
         reportCard.setSendTo(getGuardianEmails(child.getFamily().getGuardians()));
-    
+
         return reportCard;
     }
 
@@ -99,5 +104,20 @@ public class ReportCardServiceImpl implements ReportCardService {
                 .map(Guardian::getEmailAddress)
                 .collect(Collectors.toList());
     }
-    
+
+    private String[] getNullPropertyNames(ReportCardDTO reportCardDTO) {
+        final BeanWrapper src = new BeanWrapperImpl(reportCardDTO);
+        PropertyDescriptor[] pds = src.getPropertyDescriptors();
+
+        Set<String> emptyNames = new HashSet<>();
+        for (PropertyDescriptor pd : pds) {
+            Object srcValue = src.getPropertyValue(pd.getName());
+            if (srcValue == null)
+                emptyNames.add(pd.getName());
+        }
+
+        String[] result = new String[emptyNames.size()];
+        return emptyNames.toArray(result);
+    }
+
 }

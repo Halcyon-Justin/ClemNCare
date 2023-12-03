@@ -1,12 +1,17 @@
 package halcyon.clemncare.app.service.implementation;
 
+import java.beans.PropertyDescriptor;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.BeanWrapper;
+import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +41,7 @@ public class InvoiceServiceImpl implements InvoiceService {
     @Transactional
     public Invoice createInvoice(InvoiceDTO invoiceDTO) {
         Optional<Family> family = familyRepository.findById(invoiceDTO.getFamily().getId());
-        if(family.isPresent()) {
+        if (family.isPresent()) {
             Invoice invoice = new Invoice();
             invoice.setFamily(family.get());
             // TODO: Figure Out Automated Due Dates
@@ -52,7 +57,7 @@ public class InvoiceServiceImpl implements InvoiceService {
     @Override
     public Invoice updateInvoice(Long id, InvoiceDTO invoiceDTO) {
         Optional<Invoice> optionalInvoice = invoiceRepository.findById(id);
-        if(optionalInvoice.isPresent()) {
+        if (optionalInvoice.isPresent()) {
             Invoice existingInvoice = optionalInvoice.get();
             BeanUtils.copyProperties(invoiceDTO, existingInvoice);
             return invoiceRepository.save(existingInvoice);
@@ -64,7 +69,7 @@ public class InvoiceServiceImpl implements InvoiceService {
     @Override
     public Invoice partialUpdateInvoice(Long id, InvoiceDTO invoiceDTO) {
         Invoice existinInvoice = invoiceRepository.findById(id).orElse(null);
-        BeanUtils.copyProperties(invoiceDTO, existinInvoice);
+        BeanUtils.copyProperties(invoiceDTO, existinInvoice, getNullPropertyNames(invoiceDTO));
         return invoiceRepository.save(existinInvoice);
     }
 
@@ -91,6 +96,21 @@ public class InvoiceServiceImpl implements InvoiceService {
     @Override
     public List<Invoice> findInvoicesByFamilyId(Long familyId) {
         return invoiceRepository.findByFamilyId(familyId);
+    }
+
+    private String[] getNullPropertyNames(InvoiceDTO invoiceDTO) {
+        final BeanWrapper src = new BeanWrapperImpl(invoiceDTO);
+        PropertyDescriptor[] pds = src.getPropertyDescriptors();
+
+        Set<String> emptyNames = new HashSet<>();
+        for (PropertyDescriptor pd : pds) {
+            Object srcValue = src.getPropertyValue(pd.getName());
+            if (srcValue == null)
+                emptyNames.add(pd.getName());
+        }
+
+        String[] result = new String[emptyNames.size()];
+        return emptyNames.toArray(result);
     }
 
 }

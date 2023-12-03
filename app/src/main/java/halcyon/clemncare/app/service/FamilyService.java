@@ -11,7 +11,7 @@ public interface FamilyService {
 
     public Family updateFamily(Long id, FamilyDTO familyDTO);
 
-    // public Family partialUpdateFamily(Long id, FamilyDTO familyDTO);
+    public Family partialUpdateFamily(Long id, FamilyDTO familyDTO);
 
     public void deleteFamily(Long familyId);
 

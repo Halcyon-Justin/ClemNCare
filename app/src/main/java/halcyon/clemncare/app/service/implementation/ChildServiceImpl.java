@@ -1,10 +1,15 @@
 package halcyon.clemncare.app.service.implementation;
 
+import java.beans.PropertyDescriptor;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.BeanWrapper;
+import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -60,7 +65,7 @@ public class ChildServiceImpl implements ChildService {
         Optional<Child> optionalChild = childRepository.findById(id);
         if (optionalChild.isPresent()) {
             Child existingChild = optionalChild.get();
-            BeanUtils.copyProperties(childDTO, existingChild);
+            BeanUtils.copyProperties(childDTO, existingChild, getNullPropertyNames(childDTO));
             return childRepository.save(existingChild);
         } else {
             throw new ChildNotFoundException("Child with ID " + id + " not found");
@@ -95,5 +100,20 @@ public class ChildServiceImpl implements ChildService {
         } else {
             return childrenByAge;
         }
+    }
+
+    private String[] getNullPropertyNames(ChildDTO childDTO) {
+        final BeanWrapper src = new BeanWrapperImpl(childDTO);
+        PropertyDescriptor[] pds = src.getPropertyDescriptors();
+
+        Set<String> emptyNames = new HashSet<>();
+        for (PropertyDescriptor pd : pds) {
+            Object srcValue = src.getPropertyValue(pd.getName());
+            if (srcValue == null)
+                emptyNames.add(pd.getName());
+        }
+
+        String[] result = new String[emptyNames.size()];
+        return emptyNames.toArray(result);
     }
 }
