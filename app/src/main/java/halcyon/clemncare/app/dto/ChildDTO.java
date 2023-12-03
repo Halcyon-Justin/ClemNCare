@@ -10,10 +10,11 @@ import lombok.Data;
 @Data
 public class ChildDTO {
 
+    private Long id;
     private String firstName;
     private String lastName;
     private LocalDate dateOfBirth;
-    private Long familyId;
+    private FamilyDTO family;
     private List<String> allergies;
     private Set<DayOfWeek> frequency;
     private boolean isActive;

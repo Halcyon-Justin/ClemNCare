@@ -27,7 +27,7 @@ public class GuardianServiceImpl implements GuardianService {
 
     @Override
     public Guardian createGuardian(GuardianDTO guardianDTO) {
-        Optional<Family> familyOptional = familyRepository.findById(guardianDTO.getFamilyId());
+        Optional<Family> familyOptional = familyRepository.findById(guardianDTO.getFamily().getId());
         if (familyOptional.isPresent()) {
             Guardian guardian = new Guardian();
 
@@ -38,7 +38,7 @@ public class GuardianServiceImpl implements GuardianService {
             return guardianRepository.save(guardian);
         } else {
             // Handle the case where the associated family does not exist
-            throw new FamilyNotFoundException("Family with ID " + guardianDTO.getFamilyId() + " not found");
+            throw new FamilyNotFoundException("Family with ID " + guardianDTO.getFamily().getId() + " not found");
         }
     }
 

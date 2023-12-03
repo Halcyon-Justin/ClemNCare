@@ -6,7 +6,8 @@ import lombok.Data;
 
 @Data
 public class InvoiceDTO {
-    private Long familyId;
+    private Long id;
+    private FamilyDTO family;
     private Date dueDate;
     private Long amountDue;
     private boolean isPaid;

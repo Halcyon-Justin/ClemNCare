@@ -28,7 +28,7 @@ public class ChildServiceImpl implements ChildService {
 
     @Override
     public Child createChild(ChildDTO childDTO) {
-        Optional<Family> familyOptional = familyRepository.findById(childDTO.getFamilyId());
+        Optional<Family> familyOptional = familyRepository.findById(childDTO.getFamily().getId());
         if (familyOptional.isPresent()) {
             Child child = new Child();
 
@@ -39,7 +39,7 @@ public class ChildServiceImpl implements ChildService {
             return childRepository.save(child);
         } else {
             // Handle the case where the associated family does not exist
-            throw new FamilyNotFoundException("Family with ID " + childDTO.getFamilyId() + " not found");
+            throw new FamilyNotFoundException("Family with ID " + childDTO.getFamily().getId() + " not found");
         }
     }
 

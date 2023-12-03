@@ -1,10 +1,14 @@
 package halcyon.clemncare.app.service.implementation;
 
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import halcyon.clemncare.app.dto.FamilyDTO;
+import halcyon.clemncare.app.exception.FamilyNotFoundException;
 import halcyon.clemncare.app.model.Child;
 import halcyon.clemncare.app.model.Family;
 import halcyon.clemncare.app.repositories.FamilyRepository;
@@ -17,26 +21,44 @@ public class FamilyServiceImpl implements FamilyService {
     FamilyRepository familyRepository;
 
     @Override
-    public String createFamily(Family family) {
-        familyRepository.save(family);
-        return "Family Saved Successfully";
+    public Family createFamily(FamilyDTO familyDTO) {
+        Family family = new Family();
+        BeanUtils.copyProperties(familyDTO, family);
+        return familyRepository.save(family);
     }
 
     @Override
-    public String updateFamily(Family family) {
-        familyRepository.save(family);
-        return "Family Updated Successfully";
+    public Family updateFamily(Long id, FamilyDTO familyDTO) {
+        Optional<Family> family = familyRepository.findById(id);
+        if (family.isPresent()) {
+            Family existingFamily = family.get();
+            BeanUtils.copyProperties(familyDTO, existingFamily);
+            return familyRepository.save(existingFamily);
+        } else {
+            throw new FamilyNotFoundException("Family with ID " + id + " not found");
+        }
     }
 
+    // @Override
+    // public Family partialUpdateFamily(Long id, FamilyDTO familyDTO) {
+    //     Optional<Family> family = familyRepository.findById(id);
+    //     if (family.isPresent()) {
+    //         Family existingFamily = family.get();
+    //         BeanUtils.copyProperties(familyDTO, existingFamily);
+    //         return familyRepository.save(existingFamily);
+    //     } else {
+    //         throw new FamilyNotFoundException("Family with ID " + id + " not found");
+    //     }
+    // }
+
     @Override
-    public String deleteFamily(Long familyId) {
+    public void deleteFamily(Long familyId) {
         familyRepository.deleteById(familyId);
-        return "Family Deleted Successfully";
     }
 
     @Override
     public Family getFamily(Long familyId) {
-       return familyRepository.findById(familyId).orElse(null);
+       return familyRepository.getById(familyId);
     
     }
 
@@ -47,7 +69,7 @@ public class FamilyServiceImpl implements FamilyService {
 
     @Override
     public List<Child> getActiveChildrenFromFamilyId(Long familyId) {
-        Family family = familyRepository.findById(familyId).orElse(null);
+        Family family = familyRepository.getById(familyId);
         return family.getActiveChildren();
     }
 }
