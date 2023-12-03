@@ -3,15 +3,18 @@ package halcyon.clemncare.app.service;
 import java.util.Date;
 import java.util.List;
 
+import halcyon.clemncare.app.dto.InvoiceDTO;
 import halcyon.clemncare.app.model.Invoice;
 
 public interface InvoiceService {
 
-    public Invoice createInvoice(Long familyId);
+    public Invoice createInvoice(InvoiceDTO invoiceDTO);
 
-    public String updateInvoice(Invoice invoice);
+    public Invoice updateInvoice(Long id, InvoiceDTO invoiceDTO);
 
-    public String deleteInvoice(Long invoiceId);
+    public Invoice partialUpdateInvoice(Long id, InvoiceDTO invoiceDTO);
+
+    public void deleteInvoice(Long invoiceId);
 
     public Invoice getInvoice(Long invoiceId);
 
@@ -20,5 +23,5 @@ public interface InvoiceService {
     public List<Invoice> findInvoicesByDueDate(Date dueDate);
 
     public List<Invoice> findInvoicesByFamilyId(Long familyId);
-    
+
 }

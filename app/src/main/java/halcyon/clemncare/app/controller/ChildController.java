@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import halcyon.clemncare.app.dto.ChildDTO;
 import halcyon.clemncare.app.model.Child;
 import halcyon.clemncare.app.response.ResponseHandler;
 import halcyon.clemncare.app.service.ChildService;
@@ -57,20 +59,52 @@ public class ChildController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> createChild(@RequestBody Child child) {
-        return ResponseHandler.responseBuilder("Child Created Successfully", HttpStatus.CREATED,
-                childService.createChild(child));
+    public ResponseEntity<Object> createChild(@RequestBody ChildDTO childDTO) {
+        try {
+            Child createdChild = childService.createChild(childDTO);
+            return ResponseHandler.responseBuilder("Child Created Successfully", HttpStatus.CREATED, createdChild);
+        } catch (Exception e) {
+            return ResponseHandler.responseBuilder("Child Creation Failed", HttpStatus.BAD_REQUEST, null);
+        }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> updateChild(@RequestBody Child child) {
-        return ResponseHandler.responseBuilder("Child Information Updated Successfully", HttpStatus.OK,
-                childService.updateChild(child));
+    public ResponseEntity<Object> updateChild(@RequestBody Long id,  ChildDTO childDTO) {
+        try {
+            Child updatedChild = childService.updateChild(id, childDTO);
+            if(updatedChild != null) {
+                return ResponseHandler.responseBuilder("Child Updated Successfully", HttpStatus.OK, updatedChild);
+            } else {
+                return ResponseHandler.responseBuilder("Child with ID " + id + " not found", HttpStatus.NOT_FOUND, null);
+            }
+        } catch (Exception e) {
+            return ResponseHandler.responseBuilder("Child Update Failed", HttpStatus.BAD_REQUEST, null);
+        
+        }
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Object> partialUpdateChild(@RequestBody Long id, ChildDTO childDTO) {
+        try {
+            Child updatedChild = childService.partialUpdateChild(id, childDTO);
+            if(updatedChild != null) {
+                return ResponseHandler.responseBuilder("Child Updated Successfully", HttpStatus.OK, updatedChild);
+            } else {
+                return ResponseHandler.responseBuilder("Child with ID " + id + " not found", HttpStatus.NOT_FOUND, null);
+            }
+        } catch (Exception e) {
+            return ResponseHandler.responseBuilder("Child Update Failed", HttpStatus.BAD_REQUEST, null);
+        }
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteChild(@PathVariable("id") Long id) {
-        return ResponseHandler.responseBuilder("Child has been Deleted", HttpStatus.OK, childService.deleteChild(id));
+        if(childService.getChild(id) != null) {
+            childService.deleteChild(id);
+            return ResponseHandler.responseBuilder("Child Deleted Successfully", HttpStatus.OK, null);
+        } else {
+            return ResponseHandler.responseBuilder("Child with ID " + id + " not found. Could not delete.", HttpStatus.NOT_FOUND, null);
+        }
     }
 
 }

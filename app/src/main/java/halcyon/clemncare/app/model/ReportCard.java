@@ -32,7 +32,8 @@ public class ReportCard extends TimeStampedEntity {
     @Column(name = "child_id")
     private Long childId;
 
-    private Boolean hasNapped;
+    @Column(columnDefinition = "BIT(1) default 0")
+    private boolean hasNapped;
     private String notes;
 
     @ElementCollection

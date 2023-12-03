@@ -46,10 +46,10 @@ public class Family {
     private List<Invoice> invoices;
 
     public List<Child> getActiveChildren() {
-        return children.stream().filter(child -> child.getIsActive()).toList();
+        return children.stream().filter(child -> child.isActive()).toList();
     }
     
     public List<Guardian> getGuardians() {
-        return guardians.stream().filter(guardian -> !guardian.getIsEmergencyContact()).toList();
+        return guardians.stream().filter(guardian -> !guardian.isEmergencyContact()).toList();
     }
 }

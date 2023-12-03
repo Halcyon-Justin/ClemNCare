@@ -2,6 +2,7 @@ package halcyon.clemncare.app.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
@@ -38,6 +39,7 @@ public class Invoice extends TimeStampedEntity {
 
     private Long amountDue;
 
-    private Boolean isPaid = false;
+    @Column(columnDefinition = "BIT(1) default 0")
+    private boolean isPaid;
     
 }

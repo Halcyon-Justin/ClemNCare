@@ -1,18 +1,19 @@
 package halcyon.clemncare.app.service.implementation;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
-import javax.transaction.Transactional;
-
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import halcyon.clemncare.app.dto.ReportCardRequest;
+import halcyon.clemncare.app.dto.ReportCardDTO;
+import halcyon.clemncare.app.exception.ChildNotFoundException;
+import halcyon.clemncare.app.exception.ReportCardNotFoundException;
 import halcyon.clemncare.app.model.Child;
-import halcyon.clemncare.app.model.Family;
 import halcyon.clemncare.app.model.Guardian;
 import halcyon.clemncare.app.model.ReportCard;
 import halcyon.clemncare.app.repositories.ChildRepository;
@@ -29,44 +30,48 @@ public class ReportCardServiceImpl implements ReportCardService {
     ReportCardRepository reportCardRepository;
 
     @Override
-    @Transactional
-    public ReportCard createReportCard(ReportCardRequest reportCardRequest, Long id) {
+    public ReportCard createReportCard(ReportCardDTO reportCardDTO) {
         try {
+            Long childId = reportCardDTO.getChildId();
+            Child child = childRepository.getById(childId);
 
-            // Retrieve the Child by ID
-            Child child = childRepository.getById(id);
+            ReportCard reportCard = mapReportCardToDTO(reportCardDTO, child);
 
-            Family family = child.getFamily();
-            List<String> guardianEmails = family.getGuardians().stream()
-                    .map(Guardian::getEmailAddress)
-                    .collect(Collectors.toList());
-
-            // Create a new ReportCard object
-            ReportCard reportCard = new ReportCard();
-            reportCard.setChildId(id);
-            reportCard.setHasNapped(reportCardRequest.getHasNapped());
-            reportCard.setNotes(reportCardRequest.getNotes());
-            reportCard.setSendTo(guardianEmails);
-
-            // Save the ReportCard
             return reportCardRepository.save(reportCard);
+        } catch (ChildNotFoundException e) {
+            throw new ChildNotFoundException("Child not found. Can not map Report Card to Child.");
         } catch (Exception e) {
-            e.printStackTrace();
-            // Handle exceptions as needed
             throw new RuntimeException("Error creating report card", e);
         }
     }
 
     @Override
-    public String updateReportCard(ReportCard reportCard) {
-        reportCardRepository.save(reportCard);
-        return "Report Card Updated Successfully";
+    public ReportCard updateReportCard(Long id, ReportCardDTO reportCardDTO) {
+        Optional<ReportCard> optionalReportCard = reportCardRepository.findById(id);
+        if (optionalReportCard.isPresent()) {
+            ReportCard existingReportCard = optionalReportCard.get();
+            BeanUtils.copyProperties(reportCardDTO, existingReportCard);
+            return reportCardRepository.save(existingReportCard);
+        } else {
+            throw new ReportCardNotFoundException("Report Card with ID " + id + " not found");
+        }
     }
 
     @Override
-    public String deleteReportCard(Long reportCardId) {
+    public ReportCard partialUpdateReportCard(Long id, ReportCardDTO reportCardDTO) {
+        Optional<ReportCard> optionalReportCard = reportCardRepository.findById(id);
+        if (optionalReportCard.isPresent()) {
+            ReportCard existingReportCard = optionalReportCard.get();
+            BeanUtils.copyProperties(reportCardDTO, existingReportCard);
+            return reportCardRepository.save(existingReportCard);
+        } else {
+            throw new ReportCardNotFoundException("Report Card with ID " + id + " not found");
+        }
+    }
+
+    @Override
+    public void deleteReportCard(Long reportCardId) {
         reportCardRepository.deleteById(reportCardId);
-        return "Report Card Deleted Successfully";
     }
 
     @Override
@@ -79,4 +84,20 @@ public class ReportCardServiceImpl implements ReportCardService {
         return reportCardRepository.findByChildId(childId, pageable);
     }
 
+    private ReportCard mapReportCardToDTO(ReportCardDTO reportCardDTO, Child child) {
+        ReportCard reportCard = new ReportCard();
+        reportCard.setChildId(child.getId());
+        reportCard.setHasNapped(reportCardDTO.isHasNapped());
+        reportCard.setNotes(reportCardDTO.getNotes());
+        reportCard.setSendTo(getGuardianEmails(child.getFamily().getGuardians()));
+    
+        return reportCard;
+    }
+
+    private List<String> getGuardianEmails(List<Guardian> guardians) {
+        return guardians.stream()
+                .map(Guardian::getEmailAddress)
+                .collect(Collectors.toList());
+    }
+    
 }

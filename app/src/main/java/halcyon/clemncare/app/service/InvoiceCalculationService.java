@@ -22,7 +22,7 @@ public class InvoiceCalculationService {
         Long calculatedAmount = 0L;
 
         for (Child child : children) {
-            int selectedDays = child.getFrequencyInNumber();
+            int selectedDays = child.getFrequency().size();
 
             if (child.getAge() < 2) {
                 // Infants/Toddlers pay for all 5 days, regardless of selected days

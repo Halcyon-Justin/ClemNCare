@@ -51,7 +51,8 @@ public class Child {
     @Column(name = "day_of_week")
     private Set<DayOfWeek> frequency;
 
-    private Boolean isActive = false;
+    @Column(columnDefinition = "BIT(1) default 0")
+    private boolean isActive;
 
     private String notes;
 
@@ -62,9 +63,5 @@ public class Child {
     public int getAge() {
         LocalDate now = LocalDate.now();
         return now.getYear() - dateOfBirth.getYear();
-    }
-
-    public int getFrequencyInNumber() {
-        return frequency.size();
     }
 }

@@ -2,12 +2,17 @@ package halcyon.clemncare.app.service.implementation;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import halcyon.clemncare.app.dto.InvoiceDTO;
+import halcyon.clemncare.app.exception.FamilyNotFoundException;
+import halcyon.clemncare.app.exception.InvoiceNotFoundException;
 import halcyon.clemncare.app.model.Family;
 import halcyon.clemncare.app.model.Invoice;
 import halcyon.clemncare.app.repositories.FamilyRepository;
@@ -16,7 +21,7 @@ import halcyon.clemncare.app.service.InvoiceCalculationService;
 import halcyon.clemncare.app.service.InvoiceService;
 
 @Service
-public class InvoiceServiceImpl implements InvoiceService{
+public class InvoiceServiceImpl implements InvoiceService {
 
     @Autowired
     InvoiceRepository invoiceRepository;
@@ -29,38 +34,43 @@ public class InvoiceServiceImpl implements InvoiceService{
 
     @Override
     @Transactional
-    public Invoice createInvoice(Long familyId) {
-        try{
-            //Find Associated Family (Should already be saved/created)
-            Family family = familyRepository.getById(familyId);
-            //Calulate Amount Due for Family based on # of kids, age, and frquency
-            Long calculatedAmountDue = invoiceCalculationService.calculateAmountDue(familyId);
-
-
-            //Create new Invoice and Set params
+    public Invoice createInvoice(InvoiceDTO invoiceDTO) {
+        Optional<Family> family = familyRepository.findById(invoiceDTO.getFamilyId());
+        if(family.isPresent()) {
             Invoice invoice = new Invoice();
-            invoice.setFamily(family);
-            //TODO: Figure out how to set Due Date Automatically
-            //invoice.setDueDate();
-            invoice.setAmountDue(calculatedAmountDue);
-            //Save Invoice
+            invoice.setFamily(family.get());
+            // TODO: Figure Out Automated Due Dates
+            // invoice.setDueDate(invoiceDTO.getDueDate());
+            Long amountDue = invoiceCalculationService.calculateAmountDue(family.get().getId());
+            invoice.setAmountDue(amountDue);
             return invoiceRepository.save(invoice);
-        } catch (Exception e){
-            e.printStackTrace();
-            throw new RuntimeException("Error creating invoice", e);
+        } else {
+            throw new FamilyNotFoundException("Family with ID: " + invoiceDTO.getFamilyId() + " does not exist");
         }
     }
 
     @Override
-    public String updateInvoice(Invoice invoice) {
-        invoiceRepository.save(invoice);
-        return "Invoice Updated Successfully";
+    public Invoice updateInvoice(Long id, InvoiceDTO invoiceDTO) {
+        Optional<Invoice> optionalInvoice = invoiceRepository.findById(id);
+        if(optionalInvoice.isPresent()) {
+            Invoice existingInvoice = optionalInvoice.get();
+            BeanUtils.copyProperties(invoiceDTO, existingInvoice);
+            return invoiceRepository.save(existingInvoice);
+        } else {
+            throw new InvoiceNotFoundException("Invoice with ID: " + id + " does not exist");
+        }
     }
 
     @Override
-    public String deleteInvoice(Long invoiceId) {
+    public Invoice partialUpdateInvoice(Long id, InvoiceDTO invoiceDTO) {
+        Invoice existinInvoice = invoiceRepository.findById(id).orElse(null);
+        BeanUtils.copyProperties(invoiceDTO, existinInvoice);
+        return invoiceRepository.save(existinInvoice);
+    }
+
+    @Override
+    public void deleteInvoice(Long invoiceId) {
         invoiceRepository.deleteById(invoiceId);
-        return "Invoice Removed Successfully";
     }
 
     @Override
@@ -82,4 +92,5 @@ public class InvoiceServiceImpl implements InvoiceService{
     public List<Invoice> findInvoicesByFamilyId(Long familyId) {
         return invoiceRepository.findByFamilyId(familyId);
     }
+
 }
