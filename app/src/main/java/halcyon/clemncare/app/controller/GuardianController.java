@@ -33,8 +33,8 @@ public class GuardianController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getGuardian(@PathVariable("id") Long id) {
-         Optional<Guardian> guardianOptional = Optional.ofNullable(guardianService.getGuardian(id));
+    public ResponseEntity<Object> getGuardian(@PathVariable Long id) {
+         Optional<Guardian> guardianOptional = guardianService.getGuardian(id);
          if(guardianOptional.isPresent()) {
              return ResponseHandler.responseBuilder("Requested Specific Guardian Data", HttpStatus.OK, guardianOptional.get());
          } else {
@@ -69,7 +69,7 @@ public class GuardianController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteGuardian(@PathVariable("id") Long id) {
+    public ResponseEntity<Object> deleteGuardian(@PathVariable Long id) {
         if(guardianService.getGuardian(id) != null) {
             guardianService.deleteGuardian(id);
             return ResponseHandler.responseBuilder("Guardian Deleted Successfully", HttpStatus.OK, null);

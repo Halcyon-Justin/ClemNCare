@@ -14,7 +14,7 @@ public class ChildDTO {
     private String firstName;
     private String lastName;
     private LocalDate dateOfBirth;
-    private FamilyDTO family;
+    private Long familyId;
     private List<String> allergies;
     private Set<DayOfWeek> frequency;
     private boolean isActive;

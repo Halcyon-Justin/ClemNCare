@@ -33,6 +33,8 @@ public class Child {
 
     private String firstName;
     private String lastName;
+
+    @Column(columnDefinition = "DATE DEFAULT '1900-01-01'")
     private LocalDate dateOfBirth;
 
     @JsonBackReference
@@ -61,7 +63,12 @@ public class Child {
     }
 
     public int getAge() {
-        LocalDate now = LocalDate.now();
-        return now.getYear() - dateOfBirth.getYear();
+        if (dateOfBirth != null && !dateOfBirth.isEqual(LocalDate.of(1900, 1, 1))) {
+            LocalDate now = LocalDate.now();
+            return now.getYear() - dateOfBirth.getYear();
+        } else {
+            return LocalDate.now().getYear() - 1900;
+        }
+
     }
 }

@@ -40,8 +40,8 @@ public class InvoiceController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getInvoice(@PathVariable("id") Long id) {
-        Optional<Invoice> invoiceOptional = Optional.ofNullable(invoiceService.getInvoice(id));
+    public ResponseEntity<Object> getInvoice(@PathVariable Long id) {
+        Optional<Invoice> invoiceOptional = invoiceService.getInvoice(id);
 
         if (invoiceOptional.isPresent()) {
             return ResponseHandler.responseBuilder("Requested Specific Invoice Data", HttpStatus.OK, invoiceOptional.get());
@@ -51,7 +51,7 @@ public class InvoiceController {
     }
 
     @GetMapping("/find/family/{familyId}")
-    public ResponseEntity<Object> getInvoicesByFamilyId(@PathVariable("familyId") Long familyId) {
+    public ResponseEntity<Object> getInvoicesByFamilyId(@PathVariable Long familyId) {
         List<Invoice> invoices = invoiceService.findInvoicesByFamilyId(familyId);
         if(invoices.isEmpty()) {
             return ResponseHandler.responseBuilder("No Invoices Found", HttpStatus.NOT_FOUND, null);
@@ -61,7 +61,7 @@ public class InvoiceController {
 
     }
 
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<Object> createInvoice(@RequestBody InvoiceDTO invoiceDTO) {
         try {
             Invoice invoice = invoiceService.createInvoice(invoiceDTO);
@@ -88,7 +88,7 @@ public class InvoiceController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Object> patchInvoice(@RequestBody InvoiceDTO invoiceDTO, @PathVariable("id") Long id) {
+    public ResponseEntity<Object> patchInvoice(@RequestBody InvoiceDTO invoiceDTO, @PathVariable Long id) {
         try{
             Invoice updatedInvoice = invoiceService.partialUpdateInvoice(id, invoiceDTO);
             return ResponseHandler.responseBuilder("Invoice Updated Successfully", HttpStatus.OK, updatedInvoice);
@@ -98,13 +98,8 @@ public class InvoiceController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteInvoice(@PathVariable("id") Long id) {
-        if(invoiceService.getInvoice(id) != null) {
+    public ResponseEntity<Object> deleteInvoice(@PathVariable Long id) {
             invoiceService.deleteInvoice(id);
             return ResponseHandler.responseBuilder("Invoice Deleted Successfully", HttpStatus.OK, null);
-        } else {
-            return ResponseHandler.responseBuilder("Invoice not found, could not delete.", HttpStatus.NOT_FOUND, null);
-        }
     }
-    
 }

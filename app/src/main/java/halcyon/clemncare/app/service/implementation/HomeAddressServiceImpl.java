@@ -60,8 +60,8 @@ public class HomeAddressServiceImpl implements HomeAddressService {
     }
 
     @Override
-    public HomeAddress getAddress(Long addressId) {
-        return homeAddressRepository.findById(addressId).orElse(null);
+    public Optional<HomeAddress> getAddress(Long addressId) {
+        return homeAddressRepository.findById(addressId);
     }
 
     private String[] getNullPropertyNames(HomeAddressDTO homeAddressDTO) {

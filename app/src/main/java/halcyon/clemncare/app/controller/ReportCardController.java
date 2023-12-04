@@ -30,14 +30,13 @@ public class ReportCardController {
     private ReportCardService reportCardService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getReportCard(@PathVariable("id") Long id) {
+    public ResponseEntity<Object> getReportCard(@PathVariable Long id) {
         return ResponseHandler.responseBuilder("Report Card Retrieved Successfully", HttpStatus.OK,
                 reportCardService.getReportCard(id));
     }
 
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<Object> createReportCard(@RequestBody ReportCardDTO reportCardDTO) {
-
         try{
             ReportCard createdReportCard = reportCardService.createReportCard(reportCardDTO);
             return ResponseHandler.responseBuilder("Report Card Created Successfully", HttpStatus.CREATED,
@@ -78,7 +77,7 @@ public class ReportCardController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteReportCard(@PathVariable("id") Long id) {
+    public ResponseEntity<Object> deleteReportCard(@PathVariable Long id) {
         if(reportCardService.getReportCard(id) != null) {
             reportCardService.deleteReportCard(id);
             return ResponseHandler.responseBuilder("Report Card Deleted Successfully", HttpStatus.OK, null);
@@ -88,7 +87,7 @@ public class ReportCardController {
     }
 
     @GetMapping("/find/ids/{id}")
-    public ResponseEntity<Object> findAllReportCardsByChildId(@PathVariable("id") Long id, Pageable pageable) {
+    public ResponseEntity<Object> findAllReportCardsByChildId(@PathVariable Long id, Pageable pageable) {
         try {
         Page<ReportCard> reportCards = reportCardService.getReportCardsByChildId(id, pageable);
         

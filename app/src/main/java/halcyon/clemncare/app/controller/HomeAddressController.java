@@ -28,8 +28,8 @@ public class HomeAddressController {
     private HomeAddressService homeAddressService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getHomeAddress(@PathVariable("id") Long id) {
-        Optional<HomeAddress> addressOptional = Optional.ofNullable(homeAddressService.getAddress(id));
+    public ResponseEntity<Object> getHomeAddress(@PathVariable Long id) {
+        Optional<HomeAddress> addressOptional = homeAddressService.getAddress(id);
         if (addressOptional.isPresent()) {
             return ResponseHandler.responseBuilder("Requested Specific Address Data", HttpStatus.OK,
                     addressOptional.get());
@@ -77,7 +77,7 @@ public class HomeAddressController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteAddress(@PathVariable("id") Long id) {
+    public ResponseEntity<Object> deleteAddress(@PathVariable Long id) {
         if (homeAddressService.getAddress(id) != null) {
             homeAddressService.deleteAddress(id);
             return ResponseHandler.responseBuilder("Address Deleted Successfully", HttpStatus.OK, null);

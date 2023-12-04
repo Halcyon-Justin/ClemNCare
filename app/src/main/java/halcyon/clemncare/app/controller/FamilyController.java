@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,8 +32,8 @@ public class FamilyController {
     }
     
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getFamily(@PathVariable("id") Long id) {
-        Optional<Family> familyOptional = Optional.ofNullable(familyService.getFamily(id));
+    public ResponseEntity<Object> getFamily(@PathVariable Long id) {
+        Optional<Family> familyOptional = familyService.getFamily(id);
         if(familyOptional.isPresent()) {
             return ResponseHandler.responseBuilder("Requested Specific Family Data", HttpStatus.OK, familyOptional.get());
         } else {
@@ -49,26 +48,12 @@ public class FamilyController {
             return ResponseHandler.responseBuilder("Family Created Successfully", HttpStatus.CREATED,
                     createdFamily);
         } catch (Exception e) {
-            return ResponseHandler.responseBuilder("Family Creation Failed", HttpStatus.BAD_REQUEST, null);
-        }
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<Object> updateFamily(@RequestBody Long id, FamilyDTO familyDTO) {
-        try {
-            Family updatedFamily = familyService.updateFamily(id, familyDTO);
-            if(updatedFamily != null) {
-                return ResponseHandler.responseBuilder("Family Updated Successfully", HttpStatus.OK, updatedFamily);
-            } else {
-                return ResponseHandler.responseBuilder("Family not found", HttpStatus.NOT_FOUND, null);
-            }
-        } catch (Exception e) {
-            return ResponseHandler.responseBuilder("Family Update Failed", HttpStatus.BAD_REQUEST, null);
+            return ResponseHandler.responseBuilder(e.getMessage(), HttpStatus.BAD_REQUEST, null);
         }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteFamily(@PathVariable("id") Long id) {
+    public ResponseEntity<Object> deleteFamily(@PathVariable Long id) {
         if(familyService.getFamily(id) != null) {
             familyService.deleteFamily(id);
             return ResponseHandler.responseBuilder("Family Deleted Successfully", HttpStatus.OK, null);

@@ -40,17 +40,16 @@ public class InvoiceServiceImpl implements InvoiceService {
     @Override
     @Transactional
     public Invoice createInvoice(InvoiceDTO invoiceDTO) {
-        Optional<Family> family = familyRepository.findById(invoiceDTO.getFamily().getId());
+        Optional<Family> family = familyRepository.findById(invoiceDTO.getFamilyId());
         if (family.isPresent()) {
             Invoice invoice = new Invoice();
             invoice.setFamily(family.get());
-            // TODO: Figure Out Automated Due Dates
             // invoice.setDueDate(invoiceDTO.getDueDate());
             Long amountDue = invoiceCalculationService.calculateAmountDue(family.get().getId());
             invoice.setAmountDue(amountDue);
             return invoiceRepository.save(invoice);
         } else {
-            throw new FamilyNotFoundException("Family with ID: " + invoiceDTO.getFamily().getId() + " does not exist");
+            throw new FamilyNotFoundException("Family with ID: " + invoiceDTO.getFamilyId() + " does not exist");
         }
     }
 
@@ -79,8 +78,8 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     @Override
-    public Invoice getInvoice(Long invoiceId) {
-        return invoiceRepository.findById(invoiceId).orElse(null);
+    public Optional<Invoice> getInvoice(Long invoiceId) {
+        return invoiceRepository.findById(invoiceId);
     }
 
     @Override

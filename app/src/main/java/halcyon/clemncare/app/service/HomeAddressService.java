@@ -1,5 +1,7 @@
 package halcyon.clemncare.app.service;
 
+import java.util.Optional;
+
 import halcyon.clemncare.app.dto.HomeAddressDTO;
 import halcyon.clemncare.app.model.HomeAddress;
 
@@ -13,6 +15,6 @@ public interface HomeAddressService {
 
     public void deleteAddress(Long addressId);
 
-    public HomeAddress getAddress(Long id);
+    public Optional<HomeAddress> getAddress(Long id);
 
 }

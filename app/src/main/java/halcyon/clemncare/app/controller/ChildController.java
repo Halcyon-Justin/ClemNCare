@@ -3,6 +3,9 @@ package halcyon.clemncare.app.controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +28,8 @@ import halcyon.clemncare.app.service.ChildService;
 @RequestMapping("/api/children")
 public class ChildController {
 
+    private static final Logger logger = LoggerFactory.getLogger(ChildController.class);
+
     @Autowired
     private ChildService childService;
 
@@ -35,7 +40,7 @@ public class ChildController {
     }
 
     @GetMapping("/find/ages/{age}")
-    public ResponseEntity<Object> getChildrenByAge(@PathVariable("age") int age) {
+    public ResponseEntity<Object> getChildrenByAge(@PathVariable int age) {
         List<Child> children = childService.findChildrenByAge(age);
 
         if (children != null) {
@@ -48,7 +53,7 @@ public class ChildController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getChild(@PathVariable("id") Long id) {
+    public ResponseEntity<Object> getChild(@PathVariable Long id) {
         Optional<Child> childOptional = Optional.ofNullable(childService.getChild(id));
 
         if (childOptional.isPresent()) {
@@ -69,22 +74,28 @@ public class ChildController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> updateChild(@RequestBody Long id,  ChildDTO childDTO) {
-        try {
-            Child updatedChild = childService.updateChild(id, childDTO);
-            if(updatedChild != null) {
-                return ResponseHandler.responseBuilder("Child Updated Successfully", HttpStatus.OK, updatedChild);
-            } else {
-                return ResponseHandler.responseBuilder("Child with ID " + id + " not found", HttpStatus.NOT_FOUND, null);
-            }
-        } catch (Exception e) {
-            return ResponseHandler.responseBuilder("Child Update Failed", HttpStatus.BAD_REQUEST, null);
+public ResponseEntity<Object> updateChild(@PathVariable Long id, @RequestBody ChildDTO childDTO) {
+    try {
+        logger.info("Updating child with ID: {}", id);
         
+        Child updatedChild = childService.updateChild(id, childDTO);
+        
+        if (updatedChild != null) {
+            logger.info("Child Updated Successfully: {}", updatedChild);
+            return ResponseHandler.responseBuilder("Child Updated Successfully", HttpStatus.OK, updatedChild);
+        } else {
+            logger.warn("Child with ID {} not found", id);
+            return ResponseHandler.responseBuilder("Child with ID " + id + " not found", HttpStatus.NOT_FOUND, null);
         }
+    } catch (Exception e) {
+        logger.error("Child Update Failed", e);
+        return ResponseHandler.responseBuilder("Child Update Failed", HttpStatus.BAD_REQUEST, null);
     }
+}
+
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Object> partialUpdateChild(@RequestBody Long id, ChildDTO childDTO) {
+    public ResponseEntity<Object> partialUpdateChild( @PathVariable Long id, @RequestBody ChildDTO childDTO) {
         try {
             Child updatedChild = childService.partialUpdateChild(id, childDTO);
             if(updatedChild != null) {
@@ -98,7 +109,7 @@ public class ChildController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteChild(@PathVariable("id") Long id) {
+    public ResponseEntity<Object> deleteChild(@PathVariable Long id) {
         if(childService.getChild(id) != null) {
             childService.deleteChild(id);
             return ResponseHandler.responseBuilder("Child Deleted Successfully", HttpStatus.OK, null);

@@ -1,59 +1,77 @@
 package halcyon.clemncare.app.service.implementation;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.beans.PropertyDescriptor;
-import java.util.HashSet;
-import java.util.Set;
 
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.BeanWrapper;
-import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import halcyon.clemncare.app.dto.ChildDTO;
 import halcyon.clemncare.app.dto.FamilyDTO;
-import halcyon.clemncare.app.exception.FamilyNotFoundException;
+import halcyon.clemncare.app.dto.GuardianDTO;
+import halcyon.clemncare.app.dto.HomeAddressDTO;
 import halcyon.clemncare.app.model.Child;
 import halcyon.clemncare.app.model.Family;
+import halcyon.clemncare.app.model.Guardian;
+import halcyon.clemncare.app.model.HomeAddress;
+import halcyon.clemncare.app.repositories.ChildRepository;
 import halcyon.clemncare.app.repositories.FamilyRepository;
+import halcyon.clemncare.app.repositories.GuardianRepository;
+import halcyon.clemncare.app.repositories.HomeAddressRepository;
 import halcyon.clemncare.app.service.FamilyService;
+import java.util.Collections;
 
 @Service
 public class FamilyServiceImpl implements FamilyService {
 
     @Autowired
-    FamilyRepository familyRepository;
+    private FamilyRepository familyRepository;
+
+    @Autowired
+    private ChildRepository childRepository;
+
+    @Autowired
+    private GuardianRepository guardianRepository;
+
+    @Autowired
+    private HomeAddressRepository homeAddressRepository;
 
     @Override
     public Family createFamily(FamilyDTO familyDTO) {
+        List<ChildDTO> childrenDTO = familyDTO.getChildren();
+        List<GuardianDTO> guardiansDTO = familyDTO.getGuardians();
+        GuardianDTO emergencyContactDTO = familyDTO.getEmergencyContact();
+        HomeAddressDTO addressDTO = familyDTO.getAddress();
+
+        // creating mappings from each DTO to actual Object
+        // Send through saving them invididually,
+        List<Child> children = saveChildren(childrenDTO);
+        List<Guardian> guardians = saveGuardians(guardiansDTO);
+        Guardian emergencyContact = saveEmergencyContact(emergencyContactDTO);
+        HomeAddress address = saveAddress(addressDTO);
+
+        // Create new Family
         Family family = new Family();
-        BeanUtils.copyProperties(familyDTO, family);
+
+        // Set the Family to Created Objects
+        for (Child child : children) {
+            child.setFamily(family);
+        }
+
+        for (Guardian guardian : guardians) {
+            guardian.setFamily(family);
+        }
+
+        emergencyContact.setFamily(family);
+
+        family.setChildren(children);
+        family.setGuardians(guardians);
+        family.setEmergencyContact(emergencyContact);
+        family.setAddress(address);
+
+        // Save Family
         return familyRepository.save(family);
-    }
-
-    @Override
-    public Family updateFamily(Long id, FamilyDTO familyDTO) {
-        Optional<Family> family = familyRepository.findById(id);
-        if (family.isPresent()) {
-            Family existingFamily = family.get();
-            BeanUtils.copyProperties(familyDTO, existingFamily);
-            return familyRepository.save(existingFamily);
-        } else {
-            throw new FamilyNotFoundException("Family with ID " + id + " not found");
-        }
-    }
-
-    @Override
-    public Family partialUpdateFamily(Long id, FamilyDTO familyDTO) {
-        Optional<Family> family = familyRepository.findById(id);
-        if (family.isPresent()) {
-            Family existingFamily = family.get();
-            BeanUtils.copyProperties(familyDTO, existingFamily, getNullPropertyNames(familyDTO));
-            return familyRepository.save(existingFamily);
-        } else {
-            throw new FamilyNotFoundException("Family with ID " + id + " not found");
-        }
     }
 
     @Override
@@ -62,9 +80,8 @@ public class FamilyServiceImpl implements FamilyService {
     }
 
     @Override
-    public Family getFamily(Long familyId) {
-        return familyRepository.getById(familyId);
-
+    public Optional<Family> getFamily(Long familyId) {
+        return familyRepository.findById(familyId);
     }
 
     @Override
@@ -72,24 +89,71 @@ public class FamilyServiceImpl implements FamilyService {
         return familyRepository.findAll();
     }
 
+
     @Override
     public List<Child> getActiveChildrenFromFamilyId(Long familyId) {
-        Family family = familyRepository.getById(familyId);
-        return family.getActiveChildren();
-    }
-
-    private String[] getNullPropertyNames(FamilyDTO familyDTO) {
-        final BeanWrapper src = new BeanWrapperImpl(familyDTO);
-        PropertyDescriptor[] pds = src.getPropertyDescriptors();
-
-        Set<String> emptyNames = new HashSet<>();
-        for (PropertyDescriptor pd : pds) {
-            Object srcValue = src.getPropertyValue(pd.getName());
-            if (srcValue == null)
-                emptyNames.add(pd.getName());
+        Optional<Family> optionalFamily = familyRepository.findById(familyId);
+        if (optionalFamily.isPresent()) {
+            Family family = optionalFamily.get();
+            return family.getActiveChildren();
         }
-
-        String[] result = new String[emptyNames.size()];
-        return emptyNames.toArray(result);
+        return Collections.emptyList();
     }
+
+    private List<Child> saveChildren(List<ChildDTO> children) {
+        List<Child> childrenList = new ArrayList<Child>();
+        for (ChildDTO childDTO : children) {
+            Child child = new Child();
+            child.setId(childDTO.getId());
+            child.setFirstName(childDTO.getFirstName());
+            child.setLastName(childDTO.getLastName());
+            child.setDateOfBirth(childDTO.getDateOfBirth());
+            child.setAllergies(childDTO.getAllergies());
+            child.setFrequency(childDTO.getFrequency());
+            child.setActive(childDTO.isActive());
+            child.setNotes(childDTO.getNotes());
+            childRepository.save(child);
+            childrenList.add(child);
+        }
+        return childrenList;
+    }
+
+    private List<Guardian> saveGuardians(List<GuardianDTO> guardians) {
+        List<Guardian> guardianList = new ArrayList<Guardian>();
+        for (GuardianDTO guardDTO : guardians) {
+            Guardian guardian = new Guardian();
+            guardian.setId(guardDTO.getId());
+            guardian.setFirstName(guardDTO.getFirstName());
+            guardian.setLastName(guardDTO.getLastName());
+            guardian.setPhoneNumber(guardDTO.getPhoneNumber());
+            guardian.setEmailAddress(guardDTO.getEmailAddress());
+            guardian.setRelationship(guardDTO.getRelationship());
+            guardianRepository.save(guardian);
+            guardianList.add(guardian);
+        }
+        return guardianList;
+    }
+
+    private Guardian saveEmergencyContact(GuardianDTO emergencyContactDTO) {
+        Guardian emergencyContact = new Guardian();
+        emergencyContact.setId(emergencyContactDTO.getId());
+        emergencyContact.setFirstName(emergencyContactDTO.getFirstName());
+        emergencyContact.setLastName(emergencyContactDTO.getLastName());
+        emergencyContact.setPhoneNumber(emergencyContactDTO.getPhoneNumber());
+        emergencyContact.setEmailAddress(emergencyContactDTO.getEmailAddress());
+        emergencyContact.setRelationship(emergencyContactDTO.getRelationship());
+        emergencyContact.setEmergencyContact(true);
+        return guardianRepository.save(emergencyContact);
+    }
+
+    public HomeAddress saveAddress(HomeAddressDTO addressDTO) {
+        HomeAddress address = new HomeAddress();
+        address.setId(addressDTO.getId());
+        address.setStreetAddress(addressDTO.getStreetAddress());
+        address.setCity(addressDTO.getCity());
+        address.setState(addressDTO.getState());
+        address.setZipCode(addressDTO.getZipCode());
+        return homeAddressRepository.save(address);
+    }
+
 }

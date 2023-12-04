@@ -11,7 +11,7 @@ public class GuardianDTO {
     private String lastName;
     private String phoneNumber;
     private String emailAddress;
-    private FamilyDTO family;
+    private Long familyId;
     private Relationship relationship;
     private boolean isEmergencyContact;
 

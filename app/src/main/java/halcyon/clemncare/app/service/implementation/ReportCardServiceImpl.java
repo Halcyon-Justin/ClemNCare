@@ -38,11 +38,15 @@ public class ReportCardServiceImpl implements ReportCardService {
     public ReportCard createReportCard(ReportCardDTO reportCardDTO) {
         try {
             Long childId = reportCardDTO.getChildId();
-            Child child = childRepository.getById(childId);
+            Optional<Child> optionalChild = childRepository.findById(childId);
 
-            ReportCard reportCard = mapReportCardToDTO(reportCardDTO, child);
-
-            return reportCardRepository.save(reportCard);
+            if (optionalChild.isPresent()) {
+                Child child = optionalChild.get();
+                ReportCard reportCard = mapReportCardToDTO(reportCardDTO, child);
+                return reportCardRepository.save(reportCard);
+            } else {
+                throw new ChildNotFoundException("Child not found. Can not map Report Card to Child.");
+            }
         } catch (ChildNotFoundException e) {
             throw new ChildNotFoundException("Child not found. Can not map Report Card to Child.");
         } catch (Exception e) {
@@ -80,8 +84,8 @@ public class ReportCardServiceImpl implements ReportCardService {
     }
 
     @Override
-    public ReportCard getReportCard(Long reportCardId) {
-        return reportCardRepository.findById(reportCardId).orElse(null);
+    public Optional<ReportCard> getReportCard(Long reportCardId) {
+        return reportCardRepository.findById(reportCardId);
     }
 
     @Override

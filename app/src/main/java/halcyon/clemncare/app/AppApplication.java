@@ -10,14 +10,15 @@ public class AppApplication {
         SpringApplication.run(AppApplication.class, args);
 
         //TODO:
+        // Think of Due Date Timestamp creation and Automation of creation of invoices.
+        // Automated Invoice Creation
         // Add various other calculations for Monthly earnings.
-        // Fix report cards to hold true or false and cast nulls if no child Id can be found
-        // Add additional testing for Billing
-        // Add different/more verbose wording for errors -- NO NULL DATA OK STUFF
-        // Add Swagger for API Documentation -- might work best when log in is done
+        // Add Logging
+        // Add Testing
+        // Add Swagger for API Documentation
         // Add Security
         // Add Authentication/Authorization
-        // Add Logging
+        
     }
 
 }

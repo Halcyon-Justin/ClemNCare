@@ -2,6 +2,7 @@ package halcyon.clemncare.app.service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import halcyon.clemncare.app.dto.InvoiceDTO;
 import halcyon.clemncare.app.model.Invoice;
@@ -16,7 +17,7 @@ public interface InvoiceService {
 
     public void deleteInvoice(Long invoiceId);
 
-    public Invoice getInvoice(Long invoiceId);
+    public Optional<Invoice> getInvoice(Long invoiceId);
 
     public List<Invoice> getAllInvoices();
 
