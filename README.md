@@ -1,22 +1,38 @@
 # ClemNCare
-an app to manage daycare facilities.
+Personalized Web Application for Clem-N-Care daycare.
 
-Spring Boot Application that uses:
-Spring Data JPA/Hibernate
-Spring Rest
-Spring Web
-Spring Security/JWT Authentication
-
-Swagger/Swagger-UI
-Lombok
-JUnit
-Mockito
-
-MySQL DB
+## Features
+* Register Families
+* Track Kids' day with Report Cards
+* Pay Bills
+* Invoice Families
 
 
-To clean application:
-$ mvn clean install -DskipTests
+## Spring Dependencies
+* Spring Boot Application that uses:
+* Spring Data JPA/Hibernate
+* Spring Rest
+* Spring Web
+* Spring Security/JWT Authentication
 
-To Run via command line:
+## Other Dependencies
+* Swagger/Swagger-UI
+* Lombok
+* JUnit
+* Mockito
+
+## Databasing
+* MySQL DB
+
+
+## CLI Options:
+```java
+// clean application
+mvn clean install -DskipTests
+
+// run the application
 mvn spring-boot:run
+
+// run tests
+
+```

@@ -30,15 +30,26 @@ public class Family {
     private HomeAddress address;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "family", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "family", cascade = CascadeType.ALL)
     private List<Child> children;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "family", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "family", cascade = CascadeType.ALL)
     private List<Guardian> guardians;
 
     @OneToOne
     @JoinColumn(name = "emergency_contact_id")
     private Guardian emergencyContact;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "family", cascade = CascadeType.ALL)
+    private List<Invoice> invoices;
+
+    public List<Child> getActiveChildren() {
+        return children.stream().filter(child -> child.isActive()).toList();
+    }
     
+    public List<Guardian> getGuardians() {
+        return guardians.stream().filter(guardian -> !guardian.isEmergencyContact()).toList();
+    }
 }

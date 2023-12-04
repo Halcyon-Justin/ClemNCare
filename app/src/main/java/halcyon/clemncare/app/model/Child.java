@@ -2,6 +2,7 @@ package halcyon.clemncare.app.model;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -9,6 +10,7 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,6 +33,8 @@ public class Child {
 
     private String firstName;
     private String lastName;
+
+    @Column(columnDefinition = "DATE DEFAULT '1900-01-01'")
     private LocalDate dateOfBirth;
 
     @JsonBackReference
@@ -43,11 +47,14 @@ public class Child {
     @Column(name = "allergy")
     private List<String> allergies;
 
-    @ElementCollection
+    @ElementCollection(targetClass = DayOfWeek.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "child_days_of_week", joinColumns = @JoinColumn(name = "child_id"))
     @Enumerated(EnumType.STRING)
-    private List<DayOfWeek> frequency;
+    @Column(name = "day_of_week")
+    private Set<DayOfWeek> frequency;
 
-    private Boolean isActive = false;
+    @Column(columnDefinition = "BIT(1) default 0")
+    private boolean isActive;
 
     private String notes;
 
@@ -56,7 +63,12 @@ public class Child {
     }
 
     public int getAge() {
-        LocalDate now = LocalDate.now();
-        return now.getYear() - dateOfBirth.getYear();
+        if (dateOfBirth != null && !dateOfBirth.isEqual(LocalDate.of(1900, 1, 1))) {
+            LocalDate now = LocalDate.now();
+            return now.getYear() - dateOfBirth.getYear();
+        } else {
+            return LocalDate.now().getYear() - 1900;
+        }
+
     }
 }

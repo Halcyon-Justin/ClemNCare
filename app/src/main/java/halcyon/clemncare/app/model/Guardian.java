@@ -1,5 +1,6 @@
 package halcyon.clemncare.app.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -36,7 +37,8 @@ public class Guardian {
     @Enumerated(EnumType.STRING)
     private Relationship relationship;
 
-    private Boolean isEmergencyContact =  false;
+    @Column(columnDefinition = "BIT(1) default 0")
+    private boolean isEmergencyContact;
 
     public String getName() {
         return firstName + " " + lastName;

@@ -1,7 +1,5 @@
 package halcyon.clemncare.app.exception;
 
-import javax.xml.bind.ValidationException;
-
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,34 +17,46 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.CONFLICT, request);
     }
 
-    @ExceptionHandler(value = { ValidationException.class, InvalidRequestException.class })
-    protected ResponseEntity<Object> handleValidationException(RuntimeException ex, WebRequest request) {
-        String bodyOfResponse = "Validation failed";
-        return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
-    }
-
-    @ExceptionHandler(value = UnauthorizedException.class)
-    protected ResponseEntity<Object> handleUnauthorizedException(RuntimeException ex, WebRequest request) {
-        String bodyOfResponse = "Unauthorized access";
-        return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.UNAUTHORIZED, request);
-    }
-
-    @ExceptionHandler(value = ResourceNotFoundException.class)
-    protected ResponseEntity<Object> handleResourceNotFoundException(RuntimeException ex, WebRequest request) {
-        String bodyOfResponse = "Resource not found";
-        return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
-    }
-
-    @ExceptionHandler(value = DuplicateResourceException.class)
-    protected ResponseEntity<Object> handleDuplicateResourceException(RuntimeException ex, WebRequest request) {
-        String bodyOfResponse = "Resource already exists";
-        return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.CONFLICT, request);
-    }
-
     @ExceptionHandler(value = PermissionDeniedException.class)
     protected ResponseEntity<Object> handlePermissionDeniedException(RuntimeException ex, WebRequest request) {
         String bodyOfResponse = "Permission denied";
         return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.FORBIDDEN, request);
+    }
+
+    @ExceptionHandler(value = FamilyNotFoundException.class)
+    protected ResponseEntity<Object> handleFamilyNotFoundException(RuntimeException ex, WebRequest request) {
+        String bodyOfResponse = "Family not found";
+        return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+    }
+
+    @ExceptionHandler(value = ChildNotFoundException.class)
+    protected ResponseEntity<Object> handleChildNotFoundException(RuntimeException ex, WebRequest request) {
+        String bodyOfResponse = "Child not found";
+        return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+    }
+
+    @ExceptionHandler(value = InvoiceNotFoundException.class)
+    protected ResponseEntity<Object> handleInvoiceNotFoundException(RuntimeException ex, WebRequest request) {
+        String bodyOfResponse = "Invoice not found";
+        return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+    }
+
+    @ExceptionHandler(value = GuardianNotFoundException.class)
+    protected ResponseEntity<Object> handleGuardianNotFoundException(RuntimeException ex, WebRequest request) {
+        String bodyOfResponse = "Guardian not found";
+        return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+    }
+
+    @ExceptionHandler(value = AddressNotFoundException.class)
+    protected ResponseEntity<Object> handleHomeAddressNotFoundException(RuntimeException ex, WebRequest request) {
+        String bodyOfResponse = "Home Address not found";
+        return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+    }
+
+    @ExceptionHandler(value = ReportCardNotFoundException.class)
+    protected ResponseEntity<Object> handleReportCardNotFoundException(RuntimeException ex, WebRequest request) {
+        String bodyOfResponse = "Report Card not found";
+        return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
     }
 
     // Add more exception handling methods for other exception types as needed

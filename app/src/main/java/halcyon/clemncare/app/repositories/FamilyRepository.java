@@ -9,7 +9,6 @@ import halcyon.clemncare.app.model.Family;
 
 @Repository
 public interface FamilyRepository extends JpaRepository<Family, Long> {
-
     Optional<Family> findById(Long id);
-    
+
 }

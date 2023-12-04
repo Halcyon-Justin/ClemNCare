@@ -1,18 +1,21 @@
 package halcyon.clemncare.app.service;
 
 import java.util.List;
+import java.util.Optional;
 
+import halcyon.clemncare.app.dto.FamilyDTO;
+import halcyon.clemncare.app.model.Child;
 import halcyon.clemncare.app.model.Family;
 
 public interface FamilyService {
-    public String createFamily(Family family);
+    public Family createFamily(FamilyDTO familyDTO);
 
-    public String updateFamily(Family family);
+    public void deleteFamily(Long familyId);
 
-    public String deleteFamily(Long familyId);
-
-    public Family getFamily(Long familyId);
+    public Optional<Family> getFamily(Long familyId);
 
     public List<Family> getAllFamilies();
+
+    public List<Child> getActiveChildrenFromFamilyId(Long familyId);
     
 }

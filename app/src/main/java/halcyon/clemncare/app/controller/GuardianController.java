@@ -1,5 +1,7 @@
 package halcyon.clemncare.app.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import halcyon.clemncare.app.dto.GuardianDTO;
 import halcyon.clemncare.app.model.Guardian;
 import halcyon.clemncare.app.response.ResponseHandler;
 import halcyon.clemncare.app.service.GuardianService;
@@ -30,27 +33,49 @@ public class GuardianController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getGuardian(@PathVariable("id") Long id) {
-        return ResponseHandler.responseBuilder("Requested Specific Guardian Data", HttpStatus.OK,
-                guardianService.getGuardian(id));
+    public ResponseEntity<Object> getGuardian(@PathVariable Long id) {
+         Optional<Guardian> guardianOptional = guardianService.getGuardian(id);
+         if(guardianOptional.isPresent()) {
+             return ResponseHandler.responseBuilder("Requested Specific Guardian Data", HttpStatus.OK, guardianOptional.get());
+         } else {
+             return ResponseHandler.responseBuilder("Guardian not found", HttpStatus.NOT_FOUND, null);
+         }
     }
 
     @PostMapping
-    public ResponseEntity<Object> createGuardian(@RequestBody Guardian guardian) {
-        return ResponseHandler.responseBuilder("Guardian Created Successfully", HttpStatus.CREATED,
-                guardianService.createGuardian(guardian));
+    public ResponseEntity<Object> createGuardian(@RequestBody GuardianDTO guardianDTO) {
+        try {
+            Guardian createdGuardian = guardianService.createGuardian(guardianDTO);
+            return ResponseHandler.responseBuilder("Guardian Created Successfully", HttpStatus.CREATED,
+                    createdGuardian);
+        } catch (Exception e) {
+            return ResponseHandler.responseBuilder("Guardian Creation Failed", HttpStatus.BAD_REQUEST, null);
+        }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> updateGuardian(@RequestBody Guardian guardian) {
-        return ResponseHandler.responseBuilder("Guardian Updated Successfully", HttpStatus.OK,
-                guardianService.updateGuardian(guardian));
+    public ResponseEntity<Object> updateGuardian(@RequestBody Long id, GuardianDTO guardianDTO) {
+        try {
+            Guardian updatedGuardian = guardianService.updateGuardian(id, guardianDTO);
+            if(updatedGuardian != null) {
+                return ResponseHandler.responseBuilder("Guardian Updated Successfully", HttpStatus.OK, updatedGuardian);
+            } else {
+                return ResponseHandler.responseBuilder("Guardian not found", HttpStatus.NOT_FOUND, null);
+            }
+        } catch (Exception e) { 
+            return ResponseHandler.responseBuilder("Guardian Update Failed", HttpStatus.BAD_REQUEST, null);
+        }
+               
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteGuardian(@PathVariable("id") Long id) {
-        return ResponseHandler.responseBuilder("Guardian Deleted Successfully", HttpStatus.OK,
-                guardianService.deleteGuardian(id));
+    public ResponseEntity<Object> deleteGuardian(@PathVariable Long id) {
+        if(guardianService.getGuardian(id) != null) {
+            guardianService.deleteGuardian(id);
+            return ResponseHandler.responseBuilder("Guardian Deleted Successfully", HttpStatus.OK, null);
+        } else {
+            return ResponseHandler.responseBuilder("Guardian not found", HttpStatus.NOT_FOUND, null);
+        }
     }
 
 }

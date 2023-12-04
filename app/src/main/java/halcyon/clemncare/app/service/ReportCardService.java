@@ -1,19 +1,23 @@
 package halcyon.clemncare.app.service;
 
+import java.util.Optional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import halcyon.clemncare.app.dto.ReportCardRequest;
+import halcyon.clemncare.app.dto.ReportCardDTO;
 import halcyon.clemncare.app.model.ReportCard;
 
 public interface ReportCardService {
-    public ReportCard createReportCard(ReportCardRequest reportCardRequest, Long id);
+    public ReportCard createReportCard(ReportCardDTO reportCardDTO);
 
-    public String updateReportCard(ReportCard reportCard);
+    public ReportCard updateReportCard(Long id, ReportCardDTO reportCardDTO);
 
-    public String deleteReportCard(Long reportCardId);
+    public ReportCard partialUpdateReportCard(Long id, ReportCardDTO reportCardDTO);
 
-    public ReportCard getReportCard(Long reportCardId);
+    public void deleteReportCard(Long reportCardId);
+
+    public Optional<ReportCard> getReportCard(Long reportCardId);
 
     public Page<ReportCard> getReportCardsByChildId(Long childId, Pageable pageable);
 

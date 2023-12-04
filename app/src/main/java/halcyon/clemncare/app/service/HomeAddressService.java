@@ -1,15 +1,20 @@
 package halcyon.clemncare.app.service;
 
+import java.util.Optional;
+
+import halcyon.clemncare.app.dto.HomeAddressDTO;
 import halcyon.clemncare.app.model.HomeAddress;
 
 public interface HomeAddressService {
 
-    public String createAddress(HomeAddress address);
+    public HomeAddress createAddress(HomeAddressDTO addressDTO);
 
-    public String updateAddress(HomeAddress address);
+    public HomeAddress updateAddress(Long id, HomeAddressDTO addressDTO);
 
-    public String deleteAddress(Long addressId);
+    public HomeAddress partialUpdateAddress(Long id, HomeAddressDTO addressDTO);
 
-    public HomeAddress getAddress(Long id);
+    public void deleteAddress(Long addressId);
+
+    public Optional<HomeAddress> getAddress(Long id);
 
 }

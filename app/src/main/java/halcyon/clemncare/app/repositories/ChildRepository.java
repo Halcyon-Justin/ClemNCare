@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import halcyon.clemncare.app.model.Child;
 
-
 @Repository
 public interface ChildRepository extends JpaRepository<Child, Long> {
     Optional<Child> findById(Long id);
