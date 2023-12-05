@@ -21,7 +21,7 @@ import halcyon.clemncare.app.service.HomeAddressService;
 public class HomeAddressServiceImpl implements HomeAddressService {
 
     @Autowired
-    HomeAddressRepository homeAddressRepository;
+    private HomeAddressRepository homeAddressRepository;
 
     @Override
     public HomeAddress createAddress(HomeAddressDTO addressDTO) {

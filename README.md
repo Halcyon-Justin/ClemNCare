@@ -1,15 +1,25 @@
 # ClemNCare
 Personalized Web Application for Clem-N-Care daycare.
 
+## CLI Options:
+```java
+// clean application
+mvn clean install -DskipTests
+
+// run the application
+mvn spring-boot:run
+
+// run tests
+mvn test
+```
+
 ## Features
 * Register Families
 * Track Kids' day with Report Cards
 * Pay Bills
 * Invoice Families
 
-
 ## Spring Dependencies
-* Spring Boot Application that uses:
 * Spring Data JPA/Hibernate
 * Spring Rest
 * Spring Web
@@ -23,16 +33,3 @@ Personalized Web Application for Clem-N-Care daycare.
 
 ## Databasing
 * MySQL DB
-
-
-## CLI Options:
-```java
-// clean application
-mvn clean install -DskipTests
-
-// run the application
-mvn spring-boot:run
-
-// run tests
-mvn test
-```
