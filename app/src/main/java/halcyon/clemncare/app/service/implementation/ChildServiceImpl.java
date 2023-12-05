@@ -26,10 +26,10 @@ import halcyon.clemncare.app.service.ChildService;
 public class ChildServiceImpl implements ChildService {
 
     @Autowired
-    ChildRepository childRepository;
+    private ChildRepository childRepository;
 
     @Autowired
-    FamilyRepository familyRepository;
+    private FamilyRepository familyRepository;
 
     @Override
     public Child createChild(ChildDTO childDTO) {

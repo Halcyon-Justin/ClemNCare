@@ -16,9 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import halcyon.clemncare.app.dto.InvoiceDTO;
-import halcyon.clemncare.app.exception.FamilyNotFoundException;
 import halcyon.clemncare.app.exception.InvoiceNotFoundException;
-import halcyon.clemncare.app.model.Family;
 import halcyon.clemncare.app.model.Invoice;
 import halcyon.clemncare.app.repositories.FamilyRepository;
 import halcyon.clemncare.app.repositories.InvoiceRepository;
@@ -40,18 +38,12 @@ public class InvoiceServiceImpl implements InvoiceService {
     @Override
     @Transactional
     public Invoice createInvoice(InvoiceDTO invoiceDTO) {
-        Optional<Family> family = familyRepository.findById(invoiceDTO.getFamilyId());
-        if (family.isPresent()) {
             Invoice invoice = new Invoice();
-            invoice.setFamily(family.get());
             // invoice.setDueDate(invoiceDTO.getDueDate());
-            Long amountDue = invoiceCalculationService.calculateAmountDue(family.get().getId());
+            Long amountDue = invoiceCalculationService.calculateAmountDue(invoiceDTO.getFamily().getId());
             invoice.setAmountDue(amountDue);
             return invoiceRepository.save(invoice);
-        } else {
-            throw new FamilyNotFoundException("Family with ID: " + invoiceDTO.getFamilyId() + " does not exist");
         }
-    }
 
     @Override
     public Invoice updateInvoice(Long id, InvoiceDTO invoiceDTO) {

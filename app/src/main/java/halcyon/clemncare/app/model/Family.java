@@ -1,5 +1,6 @@
 package halcyon.clemncare.app.model;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -41,14 +42,19 @@ public class Family {
     @JoinColumn(name = "emergency_contact_id")
     private Guardian emergencyContact;
 
+
     @JsonManagedReference
     @OneToMany(mappedBy = "family", cascade = CascadeType.ALL)
     private List<Invoice> invoices;
 
-    public List<Child> getActiveChildren() {
-        return children.stream().filter(child -> child.isActive()).toList();
+    public boolean hasActiveChildren() {
+        return children != null && children.stream().anyMatch(Child::isActive);
     }
-    
+
+    public List<Child> getActiveChildren() {
+        return children != null ? children.stream().filter(Child::isActive).toList() : Collections.emptyList();
+    }
+
     public List<Guardian> getGuardians() {
         return guardians.stream().filter(guardian -> !guardian.isEmergencyContact()).toList();
     }

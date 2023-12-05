@@ -1,6 +1,7 @@
 package halcyon.clemncare.app.repositories;
 
 import java.util.Optional;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -9,6 +10,6 @@ import halcyon.clemncare.app.model.Family;
 
 @Repository
 public interface FamilyRepository extends JpaRepository<Family, Long> {
-    Optional<Family> findById(Long id);
-
+    Optional<Family> findById(Family family);
+    Optional<List<Family>> findAllFamiliesByActiveChildren();
 }
