@@ -37,6 +37,7 @@ public class Invoice extends TimeStampedEntity {
 
     private Date dueDate;
 
+    @Column(columnDefinition = "BIGINT default 0")
     private Long amountDue;
 
     @Column(columnDefinition = "BIT(1) default 0")

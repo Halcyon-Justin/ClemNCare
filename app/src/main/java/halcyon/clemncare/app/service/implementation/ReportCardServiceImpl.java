@@ -1,16 +1,15 @@
 package halcyon.clemncare.app.service.implementation;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 import java.beans.PropertyDescriptor;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -28,30 +27,36 @@ import halcyon.clemncare.app.service.ReportCardService;
 @Service
 public class ReportCardServiceImpl implements ReportCardService {
 
-    @Autowired
-    ChildRepository childRepository;
 
-    @Autowired
-    ReportCardRepository reportCardRepository;
+    private ChildRepository childRepository;
+    private ReportCardRepository reportCardRepository;
+
+    public ReportCardServiceImpl(ChildRepository childRepository, ReportCardRepository reportCardRepository) {
+        this.childRepository = childRepository;
+        this.reportCardRepository = reportCardRepository;
+    }
 
     @Override
     public ReportCard createReportCard(ReportCardDTO reportCardDTO) {
         try {
-            Long childId = reportCardDTO.getChildId();
-            Optional<Child> optionalChild = childRepository.findById(childId);
+    Long childId = reportCardDTO.getChildId();
+    Optional<Child> optionalChild = childRepository.findById(childId);
 
-            if (optionalChild.isPresent()) {
-                Child child = optionalChild.get();
-                ReportCard reportCard = mapReportCardToDTO(reportCardDTO, child);
-                return reportCardRepository.save(reportCard);
-            } else {
-                throw new ChildNotFoundException("Child not found. Can not map Report Card to Child.");
-            }
-        } catch (ChildNotFoundException e) {
-            throw new ChildNotFoundException("Child not found. Can not map Report Card to Child.");
-        } catch (Exception e) {
-            throw new RuntimeException("Error creating report card", e);
-        }
+    if (optionalChild.isPresent()) {
+        Child child = optionalChild.get();
+        ReportCard reportCard = mapReportCardToDTO(reportCardDTO, child);
+        return reportCardRepository.save(reportCard);
+    } else {
+        throw new ChildNotFoundException("Child not found. Can not map Report Card to Child.");
+    }
+} catch (ChildNotFoundException e) {
+    throw e; // Re-throw the ChildNotFoundException
+} catch (Exception e) {
+    // Log the exception for further investigation
+    e.printStackTrace();
+    throw new RuntimeException("Error creating report card", e);
+}
+
     }
 
     @Override
