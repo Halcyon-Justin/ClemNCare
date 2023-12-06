@@ -52,7 +52,7 @@ public class CheckUpdateInvoicesWeekly {
         // Create new Task
         Task task = new Task();
         //Add name of Task
-        task.setTaskName("CheckUpdateInvoicesWeekly");
+        task.setTaskName("Check_Update_Invoices_Weekly");
         // Set Status to IN_PROGRESS
         task.setStatus(TaskStatus.IN_PROGRESS);
         // Save -- This will create StartTime column entry.

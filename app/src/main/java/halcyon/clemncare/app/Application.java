@@ -13,9 +13,6 @@ public class Application {
 
         //TODO:
         // Think of Due Date Timestamp creation and Automation of creation of invoices.
-        //     -Every Monday Check and Update Previous Invoice Statuses
-        //     -Then Create new Invoices for Upcoming week and set DueDate
-        //     -Calculate Amounts based on Active Children in Family and set Payment Amount.
         //     -Testing for Service
         // Add Notification System
         // Add Custom Due Date Setting, Child Value for Payment Amount
