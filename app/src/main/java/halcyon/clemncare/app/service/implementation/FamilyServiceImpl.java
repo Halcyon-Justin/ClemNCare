@@ -20,7 +20,6 @@ import halcyon.clemncare.app.repositories.FamilyRepository;
 import halcyon.clemncare.app.repositories.GuardianRepository;
 import halcyon.clemncare.app.repositories.HomeAddressRepository;
 import halcyon.clemncare.app.service.FamilyService;
-import java.util.Collections;
 
 @Service
 public class FamilyServiceImpl implements FamilyService {
@@ -89,15 +88,15 @@ public class FamilyServiceImpl implements FamilyService {
         return familyRepository.findAll();
     }
 
-
     @Override
     public List<Child> getActiveChildrenFromFamilyId(Long familyId) {
-        Optional<Family> optionalFamily = familyRepository.findById(familyId);
-        if (optionalFamily.isPresent()) {
-            Family family = optionalFamily.get();
-            return family.getActiveChildren();
+        List<Family> families = familyRepository.getAllFamiliesWithActiveChildren();
+        for (Family family : families) {
+            if (family.getId().equals(familyId)) {
+                return family.getActiveChildren();
+            }
         }
-        return Collections.emptyList();
+        return List.of();
     }
 
     private List<Child> saveChildren(List<ChildDTO> children) {

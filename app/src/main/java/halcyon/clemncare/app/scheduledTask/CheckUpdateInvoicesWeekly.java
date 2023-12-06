@@ -6,6 +6,8 @@ import java.time.temporal.TemporalAdjusters;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -36,12 +38,21 @@ public class CheckUpdateInvoicesWeekly {
     @Autowired
     private TaskServiceImpl taskServiceImpl;
 
+    // @PostConstruct
+    // public void runScheduledTaskManually() {
+    //     // You can call your scheduled task method here
+    //     // This method will be executed once the bean is initialized
+    //     CheckUpdateInvoicesWeekly();
+    // }
+
     @Scheduled(cron = "0 0 0 * * MON") // Run Every Monday at Midnight
     public void CheckUpdateInvoicesWeekly() {
-        LocalDate previousDate = LocalDate.now().with(TemporalAdjusters.previous(DayOfWeek.MONDAY));
+        // LocalDate previousDate = LocalDate.now().with(TemporalAdjusters.previous(DayOfWeek.MONDAY));
         LocalDate nextDate = LocalDate.now().with(TemporalAdjusters.next(DayOfWeek.MONDAY));
         // Create new Task
         Task task = new Task();
+        //Add name of Task
+        task.setTaskName("CheckUpdateInvoicesWeekly");
         // Set Status to IN_PROGRESS
         task.setStatus(TaskStatus.IN_PROGRESS);
         // Save -- This will create StartTime column entry.
@@ -51,10 +62,10 @@ public class CheckUpdateInvoicesWeekly {
         // Gather all previous invoices
         // Get Invoices with Previous Monday's DueDate param
         // Find Invoices with InvoiceStatus as UNPAID
-        List<Invoice> LastWeeksUnpaidInvoices = invoiceServiceImpl.getAllInvoices().stream()
-                .filter(invoice -> invoice.getDueDate().equals(previousDate)
-                        && invoice.getStatus().equals(InvoiceStatus.UNPAID))
-                .collect(Collectors.toList());
+        // List<Invoice> LastWeeksUnpaidInvoices = invoiceServiceImpl.getAllInvoices().stream()
+        //         .filter(invoice -> invoice.getDueDate().equals(previousDate)
+        //                 && invoice.getStatus().equals(InvoiceStatus.UNPAID))
+        //         .collect(Collectors.toList());
 
         // TODO:       
         // Send Notifications to Guardians that Invoice is UNPAID.
@@ -63,15 +74,12 @@ public class CheckUpdateInvoicesWeekly {
         List<Family> familiesWithActiveChildren = familyServiceImpl.getAllFamilies().stream()
                 .filter(family -> family.getChildren().stream().anyMatch(child -> child.isActive()))
                 .collect(Collectors.toList());
-        
+
         //For each Family, Calculate AmountDue and set InvoiceDTO to Save
         for (Family family : familiesWithActiveChildren) {
             InvoiceDTO invoiceDTO = new InvoiceDTO();
             invoiceDTO.setFamily(family);
-            Long amountDue = invoiceCalculationService.calculateAmountDue(family.getId());
-            invoiceDTO.setAmountDue(amountDue);
             invoiceDTO.setDueDate(nextDate);
-            invoiceDTO.setPaid(false);
             invoiceServiceImpl.createInvoice(invoiceDTO);
         }
         task.setStatus(TaskStatus.DONE);

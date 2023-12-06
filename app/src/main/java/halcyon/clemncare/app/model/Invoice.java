@@ -44,7 +44,7 @@ public class Invoice extends TimeStampedEntity {
     private Long amountDue;
 
     @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "STRING default UNPAID")
+    @Column(columnDefinition = "ENUM('UNPAID') DEFAULT 'UNPAID'")
     private InvoiceStatus status;
     
 }

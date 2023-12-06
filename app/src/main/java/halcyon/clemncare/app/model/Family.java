@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,7 +32,7 @@ public class Family {
     private HomeAddress address;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "family", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "family", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Child> children;
 
     @JsonManagedReference
@@ -41,7 +42,6 @@ public class Family {
     @OneToOne
     @JoinColumn(name = "emergency_contact_id")
     private Guardian emergencyContact;
-
 
     @JsonManagedReference
     @OneToMany(mappedBy = "family", cascade = CascadeType.ALL)
@@ -57,5 +57,16 @@ public class Family {
 
     public List<Guardian> getGuardians() {
         return guardians.stream().filter(guardian -> !guardian.isEmergencyContact()).toList();
+    }
+
+    @Override
+    public String toString() {
+        return "Family{" +
+                "id=" + id +
+                ", address=" + address +
+                ", children=" + children +
+                ", guardians=" + guardians +
+                ", emergencyContact=" + emergencyContact +
+                '}';
     }
 }

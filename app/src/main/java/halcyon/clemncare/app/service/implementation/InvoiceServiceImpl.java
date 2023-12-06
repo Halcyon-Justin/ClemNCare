@@ -37,9 +37,10 @@ public class InvoiceServiceImpl implements InvoiceService {
 
     @Override
     @Transactional
-    public Invoice createInvoice(InvoiceDTO invoiceDTO) {
+    public Invoice createInvoice(InvoiceDTO invoiceDTO) {          
             Invoice invoice = new Invoice();
-            // invoice.setDueDate(invoiceDTO.getDueDate());
+            invoice.setFamily(invoiceDTO.getFamily());
+            invoice.setDueDate(invoiceDTO.getDueDate());
             Long amountDue = invoiceCalculationService.calculateAmountDue(invoiceDTO.getFamily().getId());
             invoice.setAmountDue(amountDue);
             return invoiceRepository.save(invoice);

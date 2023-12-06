@@ -15,32 +15,16 @@ public class InvoiceCalculationService {
 
 
     public Long calculateAmountDue(Long familyId) {
-        
-
         List<Child> children = familyService.getActiveChildrenFromFamilyId(familyId);
-
-        Long calculatedAmount = 0L;
-
+        Long amountDue = 0L;
         for (Child child : children) {
-            int selectedDays = child.getFrequency().size();
-
-            if (child.getAge() < 2) {
-                // Infants/Toddlers pay for all 5 days, regardless of selected days
-                calculatedAmount += calculateDailyRate(child) * 5;
+            if(child.getAge() < 2) {
+                amountDue += 60L * 5;
             } else {
-                // Preschoolers pay based on their selected days
-                calculatedAmount += calculateDailyRate(child) * selectedDays;
+                amountDue += 50L * child.getFrequency().size();
             }
         }
-
-        return calculatedAmount;
+        return amountDue;
     }
-
-    private Long calculateDailyRate(Child child) {
-        if (child.getAge() < 2) {
-            return 60L; 
-        } else {
-            return 50L; 
-        }
-    }
+    
 }
