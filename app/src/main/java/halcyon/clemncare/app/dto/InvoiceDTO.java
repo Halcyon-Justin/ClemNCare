@@ -1,7 +1,8 @@
 package halcyon.clemncare.app.dto;
 
-import java.util.Date;
+import java.time.LocalDate;
 
+import halcyon.clemncare.app.enums.InvoiceStatus;
 import halcyon.clemncare.app.model.Family;
 import lombok.Data;
 
@@ -9,7 +10,7 @@ import lombok.Data;
 public class InvoiceDTO {
     private Long id;
     private Family family;
-    private Date dueDate;
+    private LocalDate dueDate;
     private Long amountDue;
-    private boolean isPaid;
+    private InvoiceStatus status;
 }

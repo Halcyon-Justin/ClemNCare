@@ -71,4 +71,18 @@ public class Child {
         }
 
     }
+
+    @Override
+    public String toString() {
+        return "Child{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                ", allergies=" + allergies +
+                ", frequency=" + frequency +
+                ", isActive=" + isActive +
+                ", notes='" + notes + '\'' +
+                '}';
+    }
 }
