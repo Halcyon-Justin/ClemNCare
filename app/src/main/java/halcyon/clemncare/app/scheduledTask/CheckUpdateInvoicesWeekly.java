@@ -6,19 +6,14 @@ import java.time.temporal.TemporalAdjusters;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.annotation.PostConstruct;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import halcyon.clemncare.app.dto.InvoiceDTO;
-import halcyon.clemncare.app.enums.InvoiceStatus;
 import halcyon.clemncare.app.enums.TaskStatus;
 import halcyon.clemncare.app.model.Family;
-import halcyon.clemncare.app.model.Invoice;
 import halcyon.clemncare.app.model.Task;
-import halcyon.clemncare.app.service.InvoiceCalculationService;
 import halcyon.clemncare.app.service.implementation.FamilyServiceImpl;
 import halcyon.clemncare.app.service.implementation.InvoiceServiceImpl;
 import halcyon.clemncare.app.service.implementation.TaskServiceImpl;
@@ -31,9 +26,6 @@ public class CheckUpdateInvoicesWeekly {
 
     @Autowired
     private FamilyServiceImpl familyServiceImpl;
-
-    @Autowired
-    private InvoiceCalculationService invoiceCalculationService;
 
     @Autowired
     private TaskServiceImpl taskServiceImpl;
