@@ -12,9 +12,7 @@ public class Application {
         SpringApplication.run(Application.class, args);
 
         //TODO:
-        // Think of Due Date Timestamp creation and Automation of creation of invoices.
-        //     -Testing for Service
-        // Add Notification System
+        // Testing for Services: Calculation & Notification
         // Add Custom Due Date Setting, Child Value for Payment Amount
         // Add Logging
         // Add Swagger for API Documentation

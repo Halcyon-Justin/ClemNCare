@@ -18,7 +18,6 @@ import halcyon.clemncare.app.enums.TaskStatus;
 import halcyon.clemncare.app.model.Family;
 import halcyon.clemncare.app.model.Invoice;
 import halcyon.clemncare.app.model.Task;
-import halcyon.clemncare.app.service.InvoiceCalculationService;
 import halcyon.clemncare.app.service.implementation.FamilyServiceImpl;
 import halcyon.clemncare.app.service.implementation.InvoiceServiceImpl;
 import halcyon.clemncare.app.service.implementation.TaskServiceImpl;
@@ -33,9 +32,6 @@ public class CheckUpdateInvoicesWeekly {
     private FamilyServiceImpl familyServiceImpl;
 
     @Autowired
-    private InvoiceCalculationService invoiceCalculationService;
-
-    @Autowired
     private TaskServiceImpl taskServiceImpl;
 
     // @PostConstruct
@@ -47,7 +43,7 @@ public class CheckUpdateInvoicesWeekly {
 
     @Scheduled(cron = "0 0 0 * * MON") // Run Every Monday at Midnight
     public void CheckUpdateInvoicesWeekly() {
-        // LocalDate previousDate = LocalDate.now().with(TemporalAdjusters.previous(DayOfWeek.MONDAY));
+        LocalDate previousDate = LocalDate.now().with(TemporalAdjusters.previous(DayOfWeek.MONDAY));
         LocalDate nextDate = LocalDate.now().with(TemporalAdjusters.next(DayOfWeek.MONDAY));
         // Create new Task
         Task task = new Task();
@@ -62,10 +58,10 @@ public class CheckUpdateInvoicesWeekly {
         // Gather all previous invoices
         // Get Invoices with Previous Monday's DueDate param
         // Find Invoices with InvoiceStatus as UNPAID
-        // List<Invoice> LastWeeksUnpaidInvoices = invoiceServiceImpl.getAllInvoices().stream()
-        //         .filter(invoice -> invoice.getDueDate().equals(previousDate)
-        //                 && invoice.getStatus().equals(InvoiceStatus.UNPAID))
-        //         .collect(Collectors.toList());
+        List<Invoice> LastWeeksUnpaidInvoices = invoiceServiceImpl.getAllInvoices().stream()
+                .filter(invoice -> invoice.getDueDate().equals(previousDate)
+                        && invoice.getStatus().equals(InvoiceStatus.UNPAID))
+                .collect(Collectors.toList());
 
         // TODO:       
         // Send Notifications to Guardians that Invoice is UNPAID.
